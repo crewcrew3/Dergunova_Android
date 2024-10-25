@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Application1</string>
+    <string name="hint_text">Text</string>
+    <string name="name_first_screen">First Screen</string>
+    <string name="name_second_screen">Second Screen</string>
+    <string name="name_third_screen">Third Screen</string>
+    <string name="to_1st_screen">Go to \n 1st screen</string>
+    <string name="to_2nd_screen">Go to \n 2nd screen</string>
+    <string name="to_3rd_screen">Go to \n 3rd screen</string>
+    <string name="empty_text">Empty</string>
+</resources>
