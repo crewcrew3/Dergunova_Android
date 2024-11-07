@@ -1,4 +1,4 @@
-package ru.itis.homeworks.application1.screens
+package ru.itis.homeworks.application1.screens.mainpages
 
 import android.os.Bundle
 import android.view.View
@@ -18,7 +18,7 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
         viewBinding = FragmentSecondBinding.bind(view)
 
         viewBinding?.apply {
-            val message = arguments?.getString(Properties.ARG_TEXT) ?: Properties.DEFAULT_TEXT
+            val message = arguments?.getString(Properties.ARG_TEXT)
             text.text = message
             val activity = requireActivity() as? MainActivity
 
@@ -39,7 +39,7 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
 
     companion object {
         fun getInstance(
-            text: String
+            text: String?
         ): SecondFragment {
             val bundle = Bundle()
             bundle.putString(Properties.ARG_TEXT, text)

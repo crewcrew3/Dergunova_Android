@@ -3,4 +3,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="screen_title">#4F2895</color>
+    <color name="bright">#D800FF</color>
 </resources>

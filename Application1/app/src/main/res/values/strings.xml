@@ -7,5 +7,7 @@
     <string name="to_1st_screen">Go to \n 1st screen</string>
     <string name="to_2nd_screen">Go to \n 2nd screen</string>
     <string name="to_3rd_screen">Go to \n 3rd screen</string>
+    <string name="open_bs">Open \n Bottom Sheet</string>
     <string name="empty_text">Empty</string>
+    <string name="send_text">Send</string>
 </resources>

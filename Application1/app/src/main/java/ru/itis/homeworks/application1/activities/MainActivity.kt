@@ -6,7 +6,7 @@ import ru.itis.homeworks.application1.utils.NavigationAction
 import ru.itis.homeworks.application1.Properties
 import ru.itis.homeworks.application1.R
 import ru.itis.homeworks.application1.databinding.ActivityMainBinding
-import ru.itis.homeworks.application1.screens.FirstFragment
+import ru.itis.homeworks.application1.screens.mainpages.FirstFragment
 
 class MainActivity : BaseActivity() {
 
@@ -18,13 +18,18 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
+        supportFragmentManager.registerFragmentLifecycleCallbacks(
+            FragmentLifecycleListener(),
+            false
+        )
 
-        navigate(
-            destination = FirstFragment(),
-            destinationTag = Properties.TAG_FIRST,
-            action = NavigationAction.ADD,
-            isAddToBackStack = true
+        if (savedInstanceState == null) {
+            navigate(
+                destination = FirstFragment(),
+                destinationTag = Properties.TAG_FIRST,
+                action = NavigationAction.ADD
             )
+        }
     }
 
     override fun onDestroy() {

@@ -1,4 +1,4 @@
-package ru.itis.homeworks.application1.screens
+package ru.itis.homeworks.application1.screens.mainpages
 
 import android.os.Bundle
 import android.view.View
@@ -28,7 +28,7 @@ class ThirdFragment : Fragment(R.layout.fragment_third) {
 
     companion object {
         fun getInstance(
-            text: String
+            text: String?
         ): ThirdFragment {
             val bundle = Bundle()
             bundle.putString(Properties.ARG_TEXT, text)

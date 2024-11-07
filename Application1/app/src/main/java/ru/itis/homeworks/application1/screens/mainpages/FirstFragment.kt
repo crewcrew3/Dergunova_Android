@@ -1,4 +1,4 @@
-package ru.itis.homeworks.application1.screens
+package ru.itis.homeworks.application1.screens.mainpages
 
 import android.os.Bundle
 import android.view.View
@@ -8,6 +8,7 @@ import ru.itis.homeworks.application1.utils.NavigationAction
 import ru.itis.homeworks.application1.Properties
 import ru.itis.homeworks.application1.R
 import ru.itis.homeworks.application1.databinding.FragmentFirstBinding
+import ru.itis.homeworks.application1.screens.bottomsheet.BottomSheetFragment
 
 class FirstFragment : Fragment(R.layout.fragment_first) {
 
@@ -19,6 +20,9 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
         viewBinding?.apply {
 
+            val messageFromBottomSheet = arguments?.getString(Properties.ARG_TEXT_FROM_BOTTOM_SHEET)
+            editText.setText(messageFromBottomSheet)
+
             val activity = requireActivity() as? MainActivity
 
             buttonToSecondScreen.setOnClickListener {
@@ -28,7 +32,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
                     destination = SecondFragment.getInstance(message),
                     destinationTag = Properties.TAG_SECOND,
                     action = NavigationAction.REPLACE
-                    )
+                )
             }
 
             buttonToThirdScreen.setOnClickListener {
@@ -44,7 +48,26 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
                     destination = ThirdFragment.getInstance(message),
                     destinationTag = Properties.TAG_THIRD,
                     action = NavigationAction.REPLACE
-                    )
+                )
+            }
+
+            buttonBottomSheet.setOnClickListener {
+                val dialog = BottomSheetFragment().apply {
+                    isCancelable = true
+                }
+                dialog.show(childFragmentManager, Properties.TAG_BOTTOM_SHEET)
+            }
+        }
+    }
+
+    companion object {
+        fun getInstance(
+            text: String?
+        ): FirstFragment {
+            val bundle = Bundle()
+            bundle.putString(Properties.ARG_TEXT_FROM_BOTTOM_SHEET, text)
+            return FirstFragment().apply {
+                arguments = bundle
             }
         }
     }

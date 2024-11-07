@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.FirstFragment">
+    tools:context=".screens.mainpages.FirstFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/text_field"
@@ -55,5 +55,17 @@
         android:text="@string/to_3rd_screen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_bottom_sheet"
+        style="@style/TextOnButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/open_bs"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_field" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
