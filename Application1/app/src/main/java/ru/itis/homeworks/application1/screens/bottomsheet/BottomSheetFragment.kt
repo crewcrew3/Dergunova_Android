@@ -1,9 +1,8 @@
 package ru.itis.homeworks.application1.screens.bottomsheet
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
+import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.itis.homeworks.application1.Properties
 import ru.itis.homeworks.application1.R
@@ -24,26 +23,9 @@ class BottomSheetFragment : BottomSheetDialogFragment(R.layout.dialog_bottom_she
 
             buttonSend.isEnabled = false
 
-            //анонимный класс, который реализует интерфейс TextWatcher
-            editText.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {}
-
-                override fun onTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    before: Int,
-                    count: Int
-                ) {}
-
-                override fun afterTextChanged(s: Editable?) {
-                    buttonSend.isEnabled = !s.isNullOrEmpty()
-                }
-            })
+            editText.doAfterTextChanged { s ->
+                buttonSend.isEnabled = !s.isNullOrEmpty()
+            }
 
             buttonSend.setOnClickListener {
 
@@ -53,7 +35,8 @@ class BottomSheetFragment : BottomSheetDialogFragment(R.layout.dialog_bottom_she
                 activity?.navigate(
                     destination = FirstFragment.getInstance(messageFromBottomSheet),
                     destinationTag = Properties.TAG_FIRST_BS,
-                    action = NavigationAction.REPLACE
+                    action = NavigationAction.REPLACE,
+                    isAddToBackStack = false
                 )
             }
         }

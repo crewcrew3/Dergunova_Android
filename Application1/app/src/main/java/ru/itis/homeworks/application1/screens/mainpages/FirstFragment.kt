@@ -20,8 +20,9 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
         viewBinding?.apply {
 
-            val messageFromBottomSheet = arguments?.getString(Properties.ARG_TEXT_FROM_BOTTOM_SHEET)
-            editText.setText(messageFromBottomSheet)
+            arguments?.getString(Properties.ARG_TEXT_FROM_BOTTOM_SHEET)?.let { messageFromBottomSheet ->
+                editText.setText(messageFromBottomSheet)
+            }
 
             val activity = requireActivity() as? MainActivity
 
@@ -60,6 +61,11 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewBinding = null
+    }
+
     companion object {
         fun getInstance(
             text: String?
@@ -70,10 +76,5 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
                 arguments = bundle
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewBinding = null
     }
 }

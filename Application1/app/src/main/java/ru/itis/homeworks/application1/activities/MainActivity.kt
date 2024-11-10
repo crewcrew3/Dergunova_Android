@@ -27,7 +27,8 @@ class MainActivity : BaseActivity() {
             navigate(
                 destination = FirstFragment(),
                 destinationTag = Properties.TAG_FIRST,
-                action = NavigationAction.ADD
+                action = NavigationAction.ADD,
+                isAddToBackStack = false
             )
         }
     }
