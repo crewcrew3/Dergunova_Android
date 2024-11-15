@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Application2</string>
+    <string name="btn_first_name">Vertical \n list</string>
+    <string name="btn_second_name">Grid</string>
+    <string name="item_title">Item Title</string>
+    <string name="song_title">I love cats</string>
+    <string name="song_lyrics">meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow</string>
+    <string name="hint_text">number</string>
+    <string name="bs_first_btn_text">Add</string>
+    <string name="bs_second_btn_text">Delete</string>
+    <string name="bs_third_btn_text">Add \n one</string>
+    <string name="bs_fourth_btn_text">Delete \n one</string>
+</resources>
