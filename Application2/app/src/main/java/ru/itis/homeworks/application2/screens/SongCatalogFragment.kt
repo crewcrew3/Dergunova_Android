@@ -3,7 +3,9 @@ package ru.itis.homeworks.application2.screens
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import ru.itis.homeworks.application2.Properties
@@ -25,6 +27,19 @@ class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
 
         val glide = Glide.with(this@SongCatalogFragment)
         initAdapter(glide)
+
+        viewBinding?.apply {
+            buttonGrid.setOnClickListener {
+                rvSongs.layoutManager = GridLayoutManager(
+                    requireContext(), 3, RecyclerView.VERTICAL, false
+                )
+            }
+
+            buttonVertical.setOnClickListener {
+                rvSongs.layoutManager = LinearLayoutManager(requireContext())
+            }
+
+        }
     }
 
     private fun initAdapter(glide: RequestManager) {

@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "ru.itis.homeworks.application2"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "ru.itis.homeworks.application2"
