@@ -10,10 +10,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import ru.itis.homeworks.application2.Properties
 import ru.itis.homeworks.application2.R
+import ru.itis.homeworks.application2.bottom_sheets.BottomSheetFragment
 import ru.itis.homeworks.application2.databinding.FragmentSongCatalogBinding
+import ru.itis.homeworks.application2.decorators.Decorator
 import ru.itis.homeworks.application2.recycler_view.Song
 import ru.itis.homeworks.application2.recycler_view.SongAdapter
 import ru.itis.homeworks.application2.recycler_view.SongDatabase
+import ru.itis.homeworks.application2.utils.getValueInDp
 
 class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
 
@@ -25,18 +28,33 @@ class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding = FragmentSongCatalogBinding.bind(view)
 
+        val currentTag = parentFragmentManager.fragments.lastOrNull()?.tag
+        println("TEST TAG - $currentTag")
+
         val glide = Glide.with(this@SongCatalogFragment)
         initAdapter(glide)
 
         viewBinding?.apply {
+
+            fab.setOnClickListener {
+                val dialog = BottomSheetFragment().apply {
+                    isCancelable = true
+                }
+                dialog.show(childFragmentManager, Properties.TAG_BOTTOM_SHEET)
+            }
+
             buttonGrid.setOnClickListener {
                 rvSongs.layoutManager = GridLayoutManager(
                     requireContext(), 3, RecyclerView.VERTICAL, false
                 )
+                //adapter?.setLayoutManagerType(true)
             }
 
-            buttonVertical.setOnClickListener {
-                rvSongs.layoutManager = LinearLayoutManager(requireContext())
+            buttonLinear.setOnClickListener {
+                rvSongs.layoutManager = LinearLayoutManager(
+                    requireContext(), RecyclerView.VERTICAL, false
+                )
+                //adapter?.setLayoutManagerType(false)
             }
 
         }
@@ -50,7 +68,13 @@ class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
                 onClick = ::onClick
             )
             rvSongs.adapter = adapter
-            rvSongs.layoutManager = LinearLayoutManager(requireContext())
+            rvSongs.layoutManager = LinearLayoutManager(
+                requireContext(), RecyclerView.VERTICAL, false
+            )
+
+            /*rvSongs.addItemDecoration(Decorator(
+               margin = getValueInDp(value = 8f, requireContext()).toInt()
+          ))*/
         }
     }
 

@@ -11,11 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_linear"
         tools:itemCount="3"
         tools:listitem="@layout/item_song" />
 
     <Button
-        android:id="@+id/button_vertical"
+        android:id="@+id/button_linear"
         style="@style/ButtonStyle"
         android:layout_marginStart="40dp"
         android:text="@string/btn_first_name"
@@ -29,5 +30,15 @@
         android:text="@string/btn_second_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:contentDescription="@string/fab_text"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
