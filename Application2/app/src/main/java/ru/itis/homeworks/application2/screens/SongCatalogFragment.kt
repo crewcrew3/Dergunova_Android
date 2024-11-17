@@ -12,11 +12,11 @@ import ru.itis.homeworks.application2.Properties
 import ru.itis.homeworks.application2.R
 import ru.itis.homeworks.application2.bottom_sheets.BottomSheetFragment
 import ru.itis.homeworks.application2.databinding.FragmentSongCatalogBinding
-import ru.itis.homeworks.application2.decorators.Decorator
 import ru.itis.homeworks.application2.recycler_view.Song
 import ru.itis.homeworks.application2.recycler_view.SongAdapter
-import ru.itis.homeworks.application2.recycler_view.SongDatabase
-import ru.itis.homeworks.application2.utils.getValueInDp
+import ru.itis.homeworks.application2.data.RecyclerViewListData
+import ru.itis.homeworks.application2.data.SongDatabase
+import kotlin.random.Random
 
 class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
 
@@ -27,9 +27,6 @@ class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding = FragmentSongCatalogBinding.bind(view)
-
-        val currentTag = parentFragmentManager.fragments.lastOrNull()?.tag
-        println("TEST TAG - $currentTag")
 
         val glide = Glide.with(this@SongCatalogFragment)
         initAdapter(glide)
@@ -60,10 +57,15 @@ class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
         }
     }
 
+    override fun onDestroyView() {
+        viewBinding = null
+        super.onDestroyView()
+    }
+
     private fun initAdapter(glide: RequestManager) {
         viewBinding?.apply {
             adapter = SongAdapter(
-                items = SongDatabase.songs,
+                items = RecyclerViewListData.songs,
                 glide = glide,
                 onClick = ::onClick
             )
@@ -80,13 +82,37 @@ class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
 
     private fun onClick(song: Song) {
         parentFragmentManager.beginTransaction()
-            .replace(containerId, LyricsFragment.getInstance(song.id), Properties.SECOND_TAG)
-            .addToBackStack(Properties.BACK_FIRST_TAG)
+            .replace(containerId, LyricsFragment.getInstance(song.id), Properties.DETAILED_TAG)
+            .addToBackStack(Properties.BACK_DETAILED_TAG)
             .commit()
     }
 
-    override fun onDestroyView() {
-        viewBinding = null
-        super.onDestroyView()
+    fun add(number: Int) {
+        val rvList = RecyclerViewListData.songs
+        val dataList = SongDatabase.songs
+        repeat(number) {
+            var position = 0
+            if (rvList.size != 0) {
+                position = generateRandomNumber(rvList.size)
+            }
+            val element = generateRandomNumber(dataList.size)
+            rvList.add(position, dataList[element])
+        }
+        adapter?.updateData(rvList)
     }
+
+    fun delete(number: Int) {
+        var count = number
+        val rvList = RecyclerViewListData.songs
+        if (rvList.size < number) {
+            count = rvList.size
+        }
+        repeat(count) {
+            val position = generateRandomNumber(rvList.size)
+            rvList.remove(rvList[position])
+        }
+        adapter?.updateData(rvList)
+    }
+
+    private fun generateRandomNumber(size: Int) : Int = Random.nextInt(0, size)
 }

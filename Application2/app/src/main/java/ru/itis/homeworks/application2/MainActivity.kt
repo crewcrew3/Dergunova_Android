@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .add(mainContainerId, SongCatalogFragment(), Properties.FIRST_TAG).commit()
+                .add(mainContainerId, SongCatalogFragment(), Properties.CATALOG_TAG).commit()
         }
     }
 

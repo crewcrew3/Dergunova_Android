@@ -7,8 +7,7 @@ import com.bumptech.glide.Glide
 import ru.itis.homeworks.application2.Properties
 import ru.itis.homeworks.application2.R
 import ru.itis.homeworks.application2.databinding.FragmentLyricsBinding
-import ru.itis.homeworks.application2.recycler_view.Song
-import ru.itis.homeworks.application2.recycler_view.SongDatabase
+import ru.itis.homeworks.application2.data.RecyclerViewListData
 
 class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
 
@@ -19,7 +18,7 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
         viewBinding = FragmentLyricsBinding.bind(view)
 
         val id = arguments?.getInt(Properties.ARG_ID)
-        val song = SongDatabase.songs.find{it.id == id} ?: return
+        val song = RecyclerViewListData.songs.find{it.id == id} ?: return
 
         viewBinding?.apply {
             tvTitle.text = song.name

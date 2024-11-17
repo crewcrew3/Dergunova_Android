@@ -3,7 +3,7 @@ package ru.itis.homeworks.application2.utils
 import androidx.recyclerview.widget.DiffUtil
 import ru.itis.homeworks.application2.recycler_view.Song
 
-class DiffUtil(
+class MyDiffUtil(
     private val oldList: List<Song>,
     private val newList: List<Song>
 ) : DiffUtil.Callback() {

@@ -1,4 +1,6 @@
-package ru.itis.homeworks.application2.recycler_view
+package ru.itis.homeworks.application2.data
+
+import ru.itis.homeworks.application2.recycler_view.Song
 
 object SongDatabase {
 
@@ -64,5 +66,4 @@ object SongDatabase {
             url = "https://avatars.mds.yandex.net/i?id=edd417de298ba96eeb1932ebdd89b5e9e617ee03-10369171-images-thumbs&n=13"
         )
     )
-
 }

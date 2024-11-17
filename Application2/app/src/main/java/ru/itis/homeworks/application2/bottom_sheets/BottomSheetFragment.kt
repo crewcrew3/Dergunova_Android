@@ -17,24 +17,30 @@ class BottomSheetFragment : BottomSheetDialogFragment(R.layout.dialog_bottom_she
         super.onViewCreated(view, savedInstanceState)
         viewBinding = DialogBottomSheetBinding.bind(view)
 
+        val catalogFragment = requireActivity().supportFragmentManager.findFragmentByTag(Properties.CATALOG_TAG) as? SongCatalogFragment
+
         viewBinding?.apply {
 
-            var transaction = parentFragmentManager.beginTransaction()
-
             btnAdd.setOnClickListener {
-                TODO()
+                val count = editText.text.toString().toIntOrNull() ?: 0
+                catalogFragment?.add(count)
+                dismiss()
             }
 
             btnDelete.setOnClickListener {
-                TODO()
+                val count = editText.text.toString().toIntOrNull() ?: 0
+                catalogFragment?.delete(count)
+                dismiss()
             }
 
             btnAddOne.setOnClickListener {
-                TODO()
+                catalogFragment?.add(1)
+                dismiss()
             }
 
             btnDeleteOne.setOnClickListener {
-                TODO()
+                catalogFragment?.delete(1)
+                dismiss()
             }
         }
     }

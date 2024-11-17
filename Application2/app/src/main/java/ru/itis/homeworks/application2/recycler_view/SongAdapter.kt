@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import ru.itis.homeworks.application2.databinding.ItemSongBinding
+import ru.itis.homeworks.application2.utils.MyDiffUtil
 
 class SongAdapter(
     items: List<Song>,
@@ -40,8 +41,7 @@ class SongAdapter(
     override fun getItemCount(): Int = list.size
 
     fun updateData(newList: List<Song>) {
-
-        val diffCallback = ru.itis.homeworks.application2.utils.DiffUtil(
+        val diffCallback = MyDiffUtil(
             oldList = list,
             newList = newList
         )
