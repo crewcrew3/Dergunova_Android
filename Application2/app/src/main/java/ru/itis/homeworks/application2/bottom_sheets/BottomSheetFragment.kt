@@ -3,7 +3,6 @@ package ru.itis.homeworks.application2.bottom_sheets
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import ru.itis.homeworks.application2.MainActivity
 import ru.itis.homeworks.application2.Properties
 import ru.itis.homeworks.application2.R
 import ru.itis.homeworks.application2.databinding.DialogBottomSheetBinding
@@ -39,8 +38,8 @@ class BottomSheetFragment : BottomSheetDialogFragment(R.layout.dialog_bottom_she
             }
 
             btnDeleteOne.setOnClickListener {
-                catalogFragment?.delete(1)
-                dismiss()
+               catalogFragment?.delete(1)
+               dismiss()
             }
         }
     }

@@ -1,11 +1,12 @@
 package ru.itis.homeworks.application2.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.itis.homeworks.application2.recycler_view.Song
+import ru.itis.homeworks.application2.recycler_view.MultipleHolderData
+import ru.itis.homeworks.application2.recycler_view.SongHolderData
 
 class MyDiffUtil(
-    private val oldList: List<Song>,
-    private val newList: List<Song>
+    private val oldList: List<MultipleHolderData>,
+    private val newList: List<MultipleHolderData>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldList.size
@@ -22,6 +23,9 @@ class MyDiffUtil(
         val oldItem = oldList[oldItemPosition]
         val newItem = newList[newItemPosition]
 
-        return oldItem.lyrics == newItem.lyrics
+        if (oldItem is SongHolderData && newItem is SongHolderData) {
+            return oldItem.lyrics == newItem.lyrics
+        }
+        return oldItem.name == newItem.name
     }
 }

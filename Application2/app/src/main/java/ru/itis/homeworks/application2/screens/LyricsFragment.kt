@@ -8,6 +8,7 @@ import ru.itis.homeworks.application2.Properties
 import ru.itis.homeworks.application2.R
 import ru.itis.homeworks.application2.databinding.FragmentLyricsBinding
 import ru.itis.homeworks.application2.data.RecyclerViewListData
+import ru.itis.homeworks.application2.recycler_view.SongHolderData
 
 class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
 
@@ -20,15 +21,17 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
         val id = arguments?.getInt(Properties.ARG_ID)
         val song = RecyclerViewListData.songs.find{it.id == id} ?: return
 
-        viewBinding?.apply {
-            tvTitle.text = song.name
-            tvLyrics.text = song.lyrics
+        if (song is SongHolderData) {
+            viewBinding?.apply {
+                tvTitle.text = song.name
+                tvLyrics.text = song.lyrics
 
-            Glide.with(this@LyricsFragment)
-                .load(song.url)
-                .error(R.drawable.pic_error)
-                .placeholder(R.drawable.pic_empty)
-                .into(ivImage)
+                Glide.with(this@LyricsFragment)
+                    .load(song.url)
+                    .error(R.drawable.pic_error)
+                    .placeholder(R.drawable.pic_empty)
+                    .into(ivImage)
+            }
         }
     }
 
