@@ -11,9 +11,9 @@ import ru.itis.homeworks.application2.databinding.ItemGridSongBinding
 import ru.itis.homeworks.application2.databinding.ItemHolderButtonsBinding
 import ru.itis.homeworks.application2.databinding.ItemLinearSongBinding
 import ru.itis.homeworks.application2.utils.MyDiffUtil
-import ru.itis.homeworks.application2.view_holders.ButtonHolder
-import ru.itis.homeworks.application2.view_holders.GridHolder
-import ru.itis.homeworks.application2.view_holders.LinearHolder
+import ru.itis.homeworks.application2.recycler_view.view_holders.ButtonHolder
+import ru.itis.homeworks.application2.recycler_view.view_holders.GridHolder
+import ru.itis.homeworks.application2.recycler_view.view_holders.LinearHolder
 
 class AdapterWithMultipleHolders(
     items: List<MultipleHolderData>,

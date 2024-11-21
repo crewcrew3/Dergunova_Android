@@ -1,4 +1,4 @@
-package ru.itis.homeworks.application2.view_holders
+package ru.itis.homeworks.application2.recycler_view.view_holders
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.RequestManager
