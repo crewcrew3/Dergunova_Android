@@ -3,12 +3,12 @@ package ru.itis.homeworks.application2.recycler_view.view_holders
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.RequestManager
 import ru.itis.homeworks.application2.R
-import ru.itis.homeworks.application2.databinding.ItemGridSongBinding
-import ru.itis.homeworks.application2.recycler_view.SongHolderData
+import ru.itis.homeworks.application2.databinding.ItemNarrowGridSongBinding
 import ru.itis.homeworks.application2.recycler_view.MultipleHolderData
+import ru.itis.homeworks.application2.recycler_view.SongHolderData
 
-class GridHolder(
-    private val viewBinding: ItemGridSongBinding,
+class NarrowGridHolder(
+    private val viewBinding: ItemNarrowGridSongBinding,
     private val glide: RequestManager,
     private val onClick: (MultipleHolderData) -> Unit,
     private val onLongClick: (Int) -> Unit

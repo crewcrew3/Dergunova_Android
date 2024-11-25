@@ -8,7 +8,13 @@ object RecyclerViewListData {
     val songs: MutableList<MultipleHolderData> = mutableListOf(
         ButtonHolderData(
             id = 0,
-            name = "Buttons"
+            name = "Buttons",
+            isThird = false
+        ),
+        ButtonHolderData(
+            id = 1,
+            name = "ThirdButton",
+            isThird = true
         )
     )
 }

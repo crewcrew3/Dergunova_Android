@@ -12,4 +12,8 @@ class SongHolderData(
     val url: String
 ) : MultipleHolderData(id, name)
 
-class ButtonHolderData(id: Int, name: String) : MultipleHolderData(id, name)
+class ButtonHolderData(
+    id: Int,
+    name: String,
+    val isThird: Boolean
+) : MultipleHolderData(id, name)

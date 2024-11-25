@@ -33,12 +33,12 @@ class BottomSheetFragment : BottomSheetDialogFragment(R.layout.dialog_bottom_she
             }
 
             btnAddOne.setOnClickListener {
-                catalogFragment?.add(1)
+                catalogFragment?.addOne()
                 dismiss()
             }
 
             btnDeleteOne.setOnClickListener {
-               catalogFragment?.delete(1)
+               catalogFragment?.deleteOne()
                dismiss()
             }
         }

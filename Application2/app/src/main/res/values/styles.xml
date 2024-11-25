@@ -17,7 +17,7 @@
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_width">128dp</item>
-        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_height">56dp</item>
     </style>
 
     <style name="TextItemStyle">
@@ -27,6 +27,16 @@
 
     <style name="TextItemGridStyle">
         <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextWideItemStyle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="TextNarrowItemStyle">
+        <item name="android:textSize">24sp</item>
         <item name="android:gravity">center</item>
     </style>
 

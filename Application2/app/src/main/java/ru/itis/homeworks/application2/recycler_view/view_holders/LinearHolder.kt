@@ -10,10 +10,23 @@ import ru.itis.homeworks.application2.recycler_view.MultipleHolderData
 class LinearHolder(
     private val viewBinding: ItemLinearSongBinding,
     private val glide: RequestManager,
-    private val onClick: (MultipleHolderData) -> Unit
+    private val onClick: (MultipleHolderData) -> Unit,
 ) : ViewHolder(viewBinding.root) {
 
+    private var song: SongHolderData? = null
+
+    init {
+        viewBinding.apply {
+            root.setOnClickListener {
+                song?.let { safeSong ->
+                    onClick.invoke(safeSong)
+                }
+            }
+        }
+    }
+
     fun onBind(song: SongHolderData) {
+        this.song = song
         viewBinding.apply {
             tvTitle.text = song.name
             glide
@@ -21,9 +34,6 @@ class LinearHolder(
                 .error(R.drawable.pic_error)
                 .placeholder(R.drawable.pic_empty)
                 .into(ivImage)
-            root.setOnClickListener {
-                onClick.invoke(song)
-            }
         }
     }
 }

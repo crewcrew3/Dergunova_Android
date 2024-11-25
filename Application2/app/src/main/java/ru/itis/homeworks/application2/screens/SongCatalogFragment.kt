@@ -2,8 +2,10 @@ package ru.itis.homeworks.application2.screens
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,6 +19,7 @@ import ru.itis.homeworks.application2.data.SongDatabase
 import ru.itis.homeworks.application2.decorators.Decorator
 import ru.itis.homeworks.application2.recycler_view.AdapterWithMultipleHolders
 import ru.itis.homeworks.application2.recycler_view.MultipleHolderData
+import ru.itis.homeworks.application2.recycler_view.SwipeToDeleteCallback
 import ru.itis.homeworks.application2.utils.getValueInDp
 import kotlin.random.Random
 
@@ -33,6 +36,9 @@ class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
         val glide = Glide.with(this@SongCatalogFragment)
         initAdapter(glide)
 
+        val callback = SwipeToDeleteCallback(adapter)
+        val itemTouchHelper = ItemTouchHelper(callback)
+
         viewBinding?.apply {
             fab.setOnClickListener {
                 val dialog = BottomSheetFragment().apply {
@@ -40,6 +46,7 @@ class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
                 }
                 dialog.show(childFragmentManager, Properties.TAG_BOTTOM_SHEET)
             }
+            itemTouchHelper.attachToRecyclerView(rvSongs)
         }
     }
 
@@ -56,6 +63,8 @@ class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
                 onClick = ::onClick,
                 onLinearButtonClick = ::onLinearButtonClick,
                 onGridButtonClick = ::onGridButtonClick,
+                onThirdButtonClick = ::onThirdButtonClick,
+                onLongClick = ::onLongClick,
                 recyclerView = rvSongs
             )
             rvSongs.adapter = adapter
@@ -78,6 +87,21 @@ class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
             .commit()
     }
 
+    private fun onLongClick(position: Int) {
+        val rvList = RecyclerViewListData.songs
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(R.string.alert_dialog_title)
+            .setMessage(R.string.alert_dialog_message)
+            .setCancelable(false)
+            .setPositiveButton(R.string.alert_dialog_positive_button_text) { _, _ ->
+                rvList.removeAt(position)
+                adapter?.updateData(rvList)
+            }
+            .setNegativeButton(R.string.alert_dialog_negative_button_text, null)
+            .create()
+            .show()
+    }
+
     private fun onLinearButtonClick() {
         viewBinding?.rvSongs?.layoutManager = LinearLayoutManager(
             requireContext(), RecyclerView.VERTICAL, false
@@ -94,7 +118,23 @@ class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
         //которое занимают все 3 столбца
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return if (position == 0) {
+                return if (position == 0 || position == 1) {
+                    gridLayoutManager.spanCount
+                } else {
+                    1
+                }
+            }
+        }
+    }
+
+    private fun onThirdButtonClick() {
+        val gridLayoutManager = GridLayoutManager(
+            requireContext(), 2, RecyclerView.VERTICAL, false
+        )
+        viewBinding?.rvSongs?.layoutManager = gridLayoutManager
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (position == 0 || position == 1 || (position + 1) % 3 == 0) {
                     gridLayoutManager.spanCount
                 } else {
                     1
@@ -107,28 +147,49 @@ class SongCatalogFragment : Fragment(R.layout.fragment_song_catalog) {
         val rvList = RecyclerViewListData.songs
         val dataList = SongDatabase.songs
         repeat(number) {
-            //чтобы не затрагивать кнопки, будем вставлять элементы на позицию >0
-            var position = 1
-            if (rvList.size != 1) {
-                position = Random.nextInt(1, rvList.size)
+            //чтобы не затрагивать кнопки, будем вставлять элементы на позицию > 1
+            var position = 2
+            if (rvList.size != 2) {
+                position = Random.nextInt(2, rvList.size)
             }
-            val element = Random.nextInt(0, dataList.size)
-            rvList.add(position, dataList[element])
+            val elementPos = Random.nextInt(0, dataList.size)
+            rvList.add(position, dataList[elementPos])
         }
         adapter?.updateData(rvList)
+    }
+
+    fun addOne() {
+        val rvList = RecyclerViewListData.songs
+        val dataList = SongDatabase.songs
+        var position = 2
+        if (rvList.size != 2) {
+            position = Random.nextInt(2, rvList.size)
+        }
+        val elementPos = Random.nextInt(0, dataList.size)
+        rvList.add(position, dataList[elementPos])
+        adapter?.addItem(dataList[elementPos], position)
     }
 
     fun delete(number: Int) {
         var count = number
         val rvList = RecyclerViewListData.songs
-        if (rvList.size < number) {
-            count = rvList.size - 1 //размер листа без кнопок
+        if ((rvList.size - 2) < number) {
+            count = rvList.size - 2 //размер листа без кнопок
         }
         repeat(count) {
-            //генерация рандомной позиции начиная с 1 гарантирует, что мы случайно не удалим кнопки
-            val position = Random.nextInt(1, rvList.size)
-            rvList.remove(rvList[position])
+            //генерация рандомной позиции начиная с 2 гарантирует, что мы случайно не удалим кнопки
+            val position = Random.nextInt(2, rvList.size)
+            rvList.removeAt(position)
         }
         adapter?.updateData(rvList)
+    }
+
+    fun deleteOne() {
+        val rvList = RecyclerViewListData.songs
+        if (rvList.size > 2) {
+            val position = Random.nextInt(2, rvList.size)
+            rvList.removeAt(position)
+            adapter?.deleteItem(position)
+        }
     }
 }

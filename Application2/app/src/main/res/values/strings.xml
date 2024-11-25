@@ -11,4 +11,9 @@
     <string name="bs_third_btn_text">Add \n one</string>
     <string name="bs_fourth_btn_text">Delete \n one</string>
     <string name="fab_text">Add Item</string>
+    <string name="btn_third_name">Super puper grid</string>
+    <string name="alert_dialog_title">Confirm the deletion</string>
+    <string name="alert_dialog_message">Are you sure you want to delete this item?</string>
+    <string name="alert_dialog_positive_button_text">Yes</string>
+    <string name="alert_dialog_negative_button_text">No</string>
 </resources>

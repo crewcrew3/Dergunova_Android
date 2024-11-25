@@ -22,7 +22,7 @@ object SongDatabase {
                     "Mada minu ito wo hiite\n" +
                     "Kuromaku no odemashi sa\n" +
                     "Sono me ni utsuru no wa",
-            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2F6a6bfceaa09561be986058fd67c21861.600x600x1.png"
+            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2F6a6bfceaa09561be986058fd67c21861.600x600x1.png",
         ),
         SongHolderData (
             id = 2,
@@ -38,7 +38,7 @@ object SongDatabase {
                     "Baka ni natte chuu wo matte\n" +
                     "Shitara mo kowarete shimaimashita\n" +
                     "\n",
-            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2Fb3080eb4062fb32b405000edc377fed2.1000x1000x1.png"
+            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2Fb3080eb4062fb32b405000edc377fed2.1000x1000x1.png",
         ),
         SongHolderData (
             id = 3,
@@ -60,7 +60,7 @@ object SongDatabase {
                     "Soumeina hitomi de sеkai wo shiru\n" +
                     "Afureru kono omoiyo iza\n" +
                     "Mukaete kure yo hakushu kassai de",
-            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2F006030cf242abc0b6809c62ffb0ff80c.1000x1000x1.png"
+            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2F006030cf242abc0b6809c62ffb0ff80c.1000x1000x1.png",
         ),
         SongHolderData(
             id = 4,
@@ -73,7 +73,7 @@ object SongDatabase {
                     "Itsu datte joudan meita koe ga nodooku de tsukaeru oto ga\n" +
                     "Mitashitan da mada owaccha inai ze\n" +
                     "Daidondengaeshi wo",
-            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2Fa680c9a44c50ac98454a55d84b7efd73.1000x1000x1.jpg"
+            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2Fa680c9a44c50ac98454a55d84b7efd73.1000x1000x1.jpg",
         ),
         SongHolderData (
             id = 5,
@@ -96,7 +96,7 @@ object SongDatabase {
                     "They will die and be afraid\n" +
                     "Mother, tell me so I say (Mother, tell me so I say)\n" +
                     "\n",
-            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2F6ff1d5d7fb947e01f26cfe16019e3611.1000x1000x1.png"
+            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2F6ff1d5d7fb947e01f26cfe16019e3611.1000x1000x1.png",
         ),
         SongHolderData (
             id = 6,
@@ -121,7 +121,7 @@ object SongDatabase {
                     "Omoide wo uragiru nara\n" +
                     "Kono sora wo daite kagayaku\n" +
                     "Shounen yo shinwa ni nare",
-            url = "https://avatars.mds.yandex.net/i?id=3caa00c999f183bd197a41cd88b870c7a126730d-4593232-images-thumbs&n=13"
+            url = "https://avatars.mds.yandex.net/i?id=3caa00c999f183bd197a41cd88b870c7a126730d-4593232-images-thumbs&n=13",
         ),
         SongHolderData (
             id = 7,
@@ -145,7 +145,7 @@ object SongDatabase {
                     "Ita no ue notautsu orе wo\n" +
                     "Sou itsuka wa kainarasu\n" +
                     "Oodemapige and demon\n",
-            url = "https://avatars.mds.yandex.net/i?id=6bdc2c146f7eb72ddc1d2c4e2f68a8a99f9dc918-10353822-images-thumbs&n=13"
+            url = "https://avatars.mds.yandex.net/i?id=6bdc2c146f7eb72ddc1d2c4e2f68a8a99f9dc918-10353822-images-thumbs&n=13",
         ),
         SongHolderData (
             id = 8,
@@ -158,7 +158,7 @@ object SongDatabase {
                     "You'll never have to wonder\n" +
                     "We can always play by ear\n" +
                     "But that's the deal, my dear",
-            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2Fe10767c33674a3381c29f74e26871c8a.585x585x1.png"
+            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2Fe10767c33674a3381c29f74e26871c8a.585x585x1.png",
         ),
         SongHolderData (
             id = 9,
@@ -185,13 +185,13 @@ object SongDatabase {
                     "Recommended at the price\n" +
                     "Insatiable an appetite\n" +
                     "Wanna try?",
-            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2F723a010c4f245165b60dae8d3af092e4.991x1000x1.jpg"
+            url = "https://t2.genius.com/unsafe/425x425/https%3A%2F%2Fimages.genius.com%2F723a010c4f245165b60dae8d3af092e4.991x1000x1.jpg",
         ),
         SongHolderData (
             id = 10,
             name = "meow?",
             lyrics = "meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow meow",
-            url = "https://yandex-images.clstorage.net/49jRbP252/233d5fqVK/aVCDvzFbFsuE9K3Vr_C3moe727zX6HCrojVCG8OkW8VWcqtIXdalQZlZLKeNcmRUy-n1LtoYQuV2PMfrNL7RLzkFzr4AVhq6_bWttIbAq76XxvfJ9-ls2uoZHnai8A_1YwPrWe0uMdR0_Z0OeI7JueqxwGOucC_of41rqpXrUF65RMu3CdfD7zTI7PHHuKveW8I_gNc96G5CVR_iRhRWQU5S4kV57uVo9L2VBnAmYa3qXfy7gnkPYAu99hr5cwCSscxn22FLm3f4pHzxj_wbapdS6-AHAUimTgH3arKA5qUKUnpJ8Wo9OFBBYQa4BjGptp3EWwpFR3C_JZr2EQe8tg2804_dW2vXiLTsca9wP4YjlkPM592s1vYd4wqW5JqdFmp-qbXmkVQ4Wb1-PCJZQdK99Ec-WcMEg33eOuEzyDZF0G9z7YNrO_QghC1r8GfWs8KLAEcN5G4WvWdmjojeFQLOkl0hmmVk4EG9UgiieS2KlTDvAqUHMKd9Rr6117jCaTQjR1H3_6cIqAh1-0ibunfq89zHkeRK2nWTOhJMdqHy2rrxhUp5BPgRhc7AGjGNyh2Ya9q5nwSvOTZiFdc8NjUEw_c5HwvneDyo3ZOQtzqPdgeQI3lUGnKdj2LuBMKJmm72RbFe_QD4HckabD6lsYppOBe2Sds4h5nC9vnzrFZRSJtfATOfx3z4gCFjTGceA94rYPtxQN7GKZMK5shufY4Wbp09aqWQ5DUFIhTeBTFSMbTHXvW7iLtBAnIBK9Ay8YCzuz03l6Oc_HQhk8RHFlOKTyTfZexezoV79rrI8hEaFjbxwVpdRFTZrfZsSjmtorlk0wahq7j7XSoSTXMgsl1IZ1eZix9DDKy8YR9QuxabSgNEU-2QLnINb85-LOZd5mYOHYESqeg82fFCQAoJiWoZOBcyccM8b9WSunG3sCL1QL8jIXtXdyCgdOWj6OdOXwIv4KudGCpONTcKdkwc"
+            url = "https://yandex-images.clstorage.net/49jRbP252/233d5fqVK/aVCDvzFbFsuE9K3Vr_C3moe727zX6HCrojVCG8OkW8VWcqtIXdalQZlZLKeNcmRUy-n1LtoYQuV2PMfrNL7RLzkFzr4AVhq6_bWttIbAq76XxvfJ9-ls2uoZHnai8A_1YwPrWe0uMdR0_Z0OeI7JueqxwGOucC_of41rqpXrUF65RMu3CdfD7zTI7PHHuKveW8I_gNc96G5CVR_iRhRWQU5S4kV57uVo9L2VBnAmYa3qXfy7gnkPYAu99hr5cwCSscxn22FLm3f4pHzxj_wbapdS6-AHAUimTgH3arKA5qUKUnpJ8Wo9OFBBYQa4BjGptp3EWwpFR3C_JZr2EQe8tg2804_dW2vXiLTsca9wP4YjlkPM592s1vYd4wqW5JqdFmp-qbXmkVQ4Wb1-PCJZQdK99Ec-WcMEg33eOuEzyDZF0G9z7YNrO_QghC1r8GfWs8KLAEcN5G4WvWdmjojeFQLOkl0hmmVk4EG9UgiieS2KlTDvAqUHMKd9Rr6117jCaTQjR1H3_6cIqAh1-0ibunfq89zHkeRK2nWTOhJMdqHy2rrxhUp5BPgRhc7AGjGNyh2Ya9q5nwSvOTZiFdc8NjUEw_c5HwvneDyo3ZOQtzqPdgeQI3lUGnKdj2LuBMKJmm72RbFe_QD4HckabD6lsYppOBe2Sds4h5nC9vnzrFZRSJtfATOfx3z4gCFjTGceA94rYPtxQN7GKZMK5shufY4Wbp09aqWQ5DUFIhTeBTFSMbTHXvW7iLtBAnIBK9Ay8YCzuz03l6Oc_HQhk8RHFlOKTyTfZexezoV79rrI8hEaFjbxwVpdRFTZrfZsSjmtorlk0wahq7j7XSoSTXMgsl1IZ1eZix9DDKy8YR9QuxabSgNEU-2QLnINb85-LOZd5mYOHYESqeg82fFCQAoJiWoZOBcyccM8b9WSunG3sCL1QL8jIXtXdyCgdOWj6OdOXwIv4KudGCpONTcKdkwc",
         )
     )
 }
