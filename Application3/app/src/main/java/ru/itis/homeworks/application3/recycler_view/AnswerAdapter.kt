@@ -57,7 +57,19 @@ class AnswerAdapter(
             answer.isSelected = false
             notifyItemChanged(position, answer.isSelected)
         } else {
-            list.forEachIndexed { index, item ->
+            list.forEach {
+                if (it.isSelected) {
+                    it.isSelected = false
+                }
+            }
+            answer.isSelected = true
+            notifyDataSetChanged()
+        }
+    }
+
+    /*
+    В блоке else был еще такой вариант реализации:
+        list.forEachIndexed { index, item ->
                 if (item.isSelected) {
                     item.isSelected = false
                     notifyItemChanged(index, item.isSelected)
@@ -65,6 +77,8 @@ class AnswerAdapter(
             }
             answer.isSelected = true
             notifyItemChanged(position, answer.isSelected)
-        }
-    }
+
+      Но я от него отказалась, т.к. при выборе варианта ответа все как-то очень
+      сильно подвисало.
+     */
 }
