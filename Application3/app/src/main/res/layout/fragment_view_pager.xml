@@ -5,6 +5,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
+        android:id="@+id/tvQuizName"
+        style="@style/TextTitleStyle"
+        android:text="@string/quiz_name"
+        android:textColor="@color/default_color"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/tvTitle"
         style="@style/TextTitleStyle"
         android:text="@string/title_text"
@@ -12,7 +23,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvQuizName" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

@@ -8,4 +8,5 @@
     <string name="btn_finish_text">Завершить</string>
     <string name="snackbar_message">Вы завершили опрос!</string>
     <string name="question_count">%1$d/%2$d</string>
+    <string name="quiz_name">"IT IS Quizz!"</string>
 </resources>
