@@ -9,41 +9,30 @@ import ru.itis.homeworks.application3.models.Answer
 
 class AnswerViewHolder(
     private val viewBinding: ItemAnswerBinding,
-    private val onClick : (Answer) -> Unit
+    private val onClick : (Int) -> Unit
 ) : RecyclerView.ViewHolder(viewBinding.root) {
-
-    private var answer: Answer? = null
 
     init {
         viewBinding.apply {
             root.setOnClickListener {
-                answer?.let { safeAnswer ->
-                    onClick.invoke(safeAnswer)
-                }
+                onClick.invoke(adapterPosition)
             }
             radioButton.setOnClickListener {
-                answer?.let { safeAnswer ->
-                    onClick.invoke(safeAnswer)
-                }
+                onClick.invoke(adapterPosition)
             }
         }
     }
 
     fun onBind(answer: Answer) {
-        this.answer = answer
         viewBinding.apply {
             tvAnswer.text = answer.text
-            onBindRadioButton(answer.isSelected)
-            onBindColor(answer.isSelected)
+            onBindSelectedItem(answer.isSelected)
         }
     }
 
-    fun onBindRadioButton(isSelected: Boolean) {
-        viewBinding.radioButton.isChecked = isSelected
-    }
-
-    fun onBindColor(isSelected: Boolean) {
+    fun onBindSelectedItem(isSelected: Boolean) {
         viewBinding.apply {
+            radioButton.isChecked = isSelected
             if (isSelected) {
                 root.setCardBackgroundColor(
                     ContextCompat.getColor(

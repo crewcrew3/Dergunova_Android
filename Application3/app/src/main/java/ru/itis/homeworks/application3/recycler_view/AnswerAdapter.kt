@@ -34,15 +34,37 @@ class AnswerAdapter(
         holder.onBind(list[position])
     }
 
+    override fun onBindViewHolder(
+        holder: AnswerViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads)
+        } else {
+            when (payloads.first()) {
+                is Boolean -> holder.onBindSelectedItem(isSelected = payloads.first() as Boolean)
+                else -> super.onBindViewHolder(holder, position, payloads)
+            }
+        }
+    }
+
     override fun getItemCount(): Int = list.size
 
-    private fun onClick(answer: Answer) {
+    private fun onClick(position: Int) {
+        val answer = list[position]
         if (answer.isSelected) {
             answer.isSelected = false
+            notifyItemChanged(position, answer.isSelected)
         } else {
-            list.forEach { it.isSelected = false }
+            list.forEachIndexed { index, item ->
+                if (item.isSelected) {
+                    item.isSelected = false
+                    notifyItemChanged(index, item.isSelected)
+                }
+            }
             answer.isSelected = true
+            notifyItemChanged(position, answer.isSelected)
         }
-        notifyDataSetChanged()
     }
 }

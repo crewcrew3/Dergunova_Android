@@ -12,8 +12,4 @@ class AnswerDiffCallback : DiffUtil.ItemCallback<Answer>() {
     override fun areContentsTheSame(oldItem: Answer, newItem: Answer): Boolean {
         return oldItem.text == newItem.text
     }
-
-    override fun getChangePayload(oldItem: Answer, newItem: Answer): Any? {
-        return super.getChangePayload(oldItem, newItem)
-    }
 }

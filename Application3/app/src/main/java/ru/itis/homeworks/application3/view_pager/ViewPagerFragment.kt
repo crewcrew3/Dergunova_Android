@@ -30,7 +30,7 @@ class ViewPagerFragment : Fragment(R.layout.fragment_view_pager) {
             viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
                 override fun onPageSelected(position: Int) {
-                    tvTitle.text = "${position + 1}/${adapter.itemCount}"
+                    tvTitle.text = context?.getString(R.string.question_count, position + 1, adapter.itemCount)
                     buttonBack.isEnabled = position > 0
 
                     if (position == adapter.itemCount - 1) {

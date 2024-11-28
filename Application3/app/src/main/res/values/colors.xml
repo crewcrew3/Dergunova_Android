@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="item_selected_color">#84E291</color>
+    <color name="item_selected_color">#65FB78</color>
     <color name="radio_button_checked_color">#288A35</color>
     <color name="default_color">#6750A4</color>
 </resources>
