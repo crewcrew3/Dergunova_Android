@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Application3</string>
+    <string name="question_text">Вопрос??</string>
+    <string name="answer_text">Ответ!!</string>
+    <string name="title_text">k/n</string>
+    <string name="btn_back_text">Назад</string>
+    <string name="btn_next_text">Далее</string>
+    <string name="btn_finish_text">Завершить</string>
+    <string name="snackbar_message">Вы завершили опрос!</string>
+</resources>
