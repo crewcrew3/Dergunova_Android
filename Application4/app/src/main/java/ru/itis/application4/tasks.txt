@@ -119,3 +119,15 @@ class PermissionsHandler(
         multiplePermissionResult?.launch(permissions.toTypedArray()) //преобразует список в массив с соответствующим типом данных
     }
 }
+
+//startActivityForResult(intent, Properties.REQUEST_CODE_PICK_IMAGE)
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        //проверяем код запроса, и что действие, запущенное с помощью startActivityForResult(), завершилась успешно.
+//        if (requestCode == Properties.REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+//            data?.data?.let { uri -> //берем uri выбранного пользователем изображения
+//                loadImage(uri)
+//            }
+//        }
+//    }

@@ -83,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/hint_input_text"
+        app:helperText="@string/hint_notification_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cvThemeContainer">
@@ -94,15 +95,6 @@
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/tvHintNotificationTitle"
-        style="@style/NotificationHintStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_notification_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tfTitle" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tfMessage"
         style="@style/Widget.Material3.TextInputLayout.FilledBox"
@@ -110,9 +102,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/hint_input_text"
+        app:helperText="@string/hint_notification_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHintNotificationTitle">
+        app:layout_constraintTop_toBottomOf="@+id/tfTitle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etMessage"
@@ -121,15 +114,6 @@
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/tvHintNotificationMessage"
-        style="@style/NotificationHintStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_notification_message"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tfMessage" />
-
     <Spinner
         android:id="@+id/importanceSpinner"
         android:layout_width="match_parent"
@@ -137,7 +121,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvHintNotificationMessage" />
+        app:layout_constraintTop_toBottomOf="@id/tfMessage" />
 
     <Button
         android:id="@+id/btnShowNotification"

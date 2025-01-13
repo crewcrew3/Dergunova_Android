@@ -37,6 +37,7 @@ class NotificationHandler(
                 notificationManager.createNotificationChannel(channel)
             }
         }
+
     }
 
     fun showNotification(notificationData: NotificationData) {

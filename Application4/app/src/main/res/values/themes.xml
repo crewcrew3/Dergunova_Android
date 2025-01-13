@@ -7,16 +7,13 @@
 
     <style name="RedTheme" parent="Base.Theme.Application4">
         <item name="colorPrimary">@color/theme_red</item>
-        <item name="colorAccent">#FF4081</item>
     </style>
 
     <style name="GreenTheme" parent="Base.Theme.Application4">
         <item name="colorPrimary">@color/theme_green</item>
-        <item name="colorAccent">#53F18A</item>
     </style>
 
     <style name="YellowTheme" parent="Base.Theme.Application4">
         <item name="colorPrimary">@color/theme_yellow</item>
-        <item name="colorAccent">#FFAA00</item>
     </style>
 </resources>
