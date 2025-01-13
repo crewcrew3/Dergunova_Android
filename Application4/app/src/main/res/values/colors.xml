@@ -4,7 +4,16 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#959595</color>
     <color name="circle_color">#D1CBEB</color> <!-- цвет кружочка в профиле -->
+
+    <color name="theme_purple">#6200ee</color>
+    <color name="theme_purple_color_primary_dark">#3700b3</color>
+
     <color name="theme_red">#FA1515</color>
+    <color name="theme_red_color_primary_dark">#6C0000</color>
+    
     <color name="theme_green">#2EE421</color>
+    <color name="theme_green_color_primary_dark">#0A7500</color>
+
     <color name="theme_yellow">#FFE70E</color>
+    <color name="theme_yellow_color_primary_dark">#B08713</color>
 </resources>
