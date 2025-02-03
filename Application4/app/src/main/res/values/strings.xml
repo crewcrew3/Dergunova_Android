@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Application4</string>
+    <string name="hint_input_text">Введите текст</string>
+    <string name="hint_notification_title">Заголовок уведомления</string>
+    <string name="hint_notification_message">Текст уведомления</string>
+    <string name="btn_show_notification_text">Показать уведомление</string>
+    <string name="btn_set_default_theme_text">Сбросить цвет</string>
+    <string name="photo_path">https://static.life.ru/publications/2021/2/4/397264576124.2849-1200x.jpeg</string>
+    <string name="toast_empty_notification_title">Заголовок уведомления пустой</string>
+    <string name="toast_empty_notification_message">Текст уведомления пустой</string>
+    <string name="toast_image_has_already_loaded">Изображение уже загружено</string>
+    <string name="toast_empty_notification_all">Заполните оба поля для показа уведомления</string>
+    <string name="launched_from_notification">Запущено из уведомления</string>
+</resources>
