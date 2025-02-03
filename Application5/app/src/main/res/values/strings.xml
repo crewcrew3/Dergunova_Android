@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Application5</string>
+    <string name="alert_dialog_title">Разрешите уведомления!</string>
+    <string name="alert_dialog_message">Для дальнейшего использования приложения, пожалуйста, дайте разрешение на отправку уведомлений в настройках.</string>
+    <string name="alert_dialog_positive_btn_text">Перейти в настройки</string>
+    <string name="text_field_start_value" />
+    <string name="text_field_label">Число корутин</string>
+    <string name="first_param_one_by_one">Последовательно</string>
+    <string name="first_param_in_parallel">Параллельно</string>
+    <string name="second_param_not_continue_in_the_background">Не продолжать в фоновом режиме</string>
+    <string name="second_param_continue_in_the_background">Продолжать выполнение в фоновом режиме</string>
+    <string name="btn_text_run_coroutines">Запустить</string>
+    <string name="btn_text_cancel_coroutines">Отменить</string>
+    <string name="drop_down_menu_label">Выберите пул-поток</string>
+    <string name="drop_down_menu_default_text">Выбор не сделан</string>
+</resources>
