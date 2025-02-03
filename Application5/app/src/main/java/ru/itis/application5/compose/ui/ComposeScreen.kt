@@ -1,51 +1,47 @@
 package ru.itis.application5.compose.ui
 
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ru.itis.application5.CoroutinesParameters
+import kotlinx.coroutines.CoroutineDispatcher
+import ru.itis.application5.utils.CoroutinesParameters
 import ru.itis.application5.R
-import ru.itis.application5.utils.Properties
-
 
 @Composable
-fun ComposeScreen() {
-
-    Column(
-        modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp, top = 240.dp)
-    ) {
-     //поле для ввода текста
+fun MainContent() {
+    Column {
+        //поле для ввода текста
         TextField(
-            value = stringResource(R.string.text_field_start_value),
-            onValueChange = { CoroutinesParameters.numberOfCoroutines = it.toIntOrNull() },
+            value = CoroutinesParameters.numberOfCoroutines?.toString() ?: "",
+            onValueChange = { input ->
+                CoroutinesParameters.numberOfCoroutines = input.toIntOrNull()
+            },
             label = { Text(text = stringResource(R.string.text_field_label)) },
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            //если число корутинов налл - то переводим поле в состояние ошибки
+            isError = CoroutinesParameters.numberOfCoroutines == null
         )
 
         //две радио-группы
@@ -115,7 +111,22 @@ fun ComposeScreen() {
                 }
             }
         }
+    }
+}
 
+
+@Composable
+fun DropDownMenu(
+    items: List<CoroutineDispatcher>,
+) {
+
+    var isMenuOpen by remember { mutableStateOf(false) }
+    var selectedItem by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
         //выпадающий список
         Row(
             modifier = Modifier
@@ -123,34 +134,50 @@ fun ComposeScreen() {
                 .align(Alignment.CenterHorizontally)
         ) {
             Text(
-                text = stringResource(R.string.drop_down_menu_label),
+                text = selectedItem.ifEmpty {
+                    stringResource(R.string.drop_down_menu_label)
+                },
                 fontSize = 16.sp,
                 modifier = Modifier
                     .padding(top = 16.dp)
             )
             Box {
-                IconButton(onClick = { Properties.menu_is_open = !Properties.menu_is_open }) {
-                    Icon(painterResource(R.drawable.ic_menu), contentDescription = "More options")
+                IconButton(onClick = { isMenuOpen = !isMenuOpen }) {
+                    Icon(
+                        painterResource(R.drawable.ic_menu),
+                        contentDescription = stringResource(R.string.icon_menu_desc_more_options)
+                    )
                 }
+
                 DropdownMenu(
-                    expanded = Properties.menu_is_open,
-                    onDismissRequest = { Properties.menu_is_open = false }
+                    expanded = isMenuOpen,
+                    onDismissRequest = { isMenuOpen = false }
                 ) {
-                    DropdownMenuItem(
-                        onClick = { /* Do something... */ }
-                    ) {
-                        Text("Option 1")
-                    }
-                    DropdownMenuItem(
-                        onClick = { /* Do something... */ }
-                    ) {
-                        Text("Option 2")
+                    items.forEach { option ->
+                        DropdownMenuItem(
+                            onClick = {
+                                CoroutinesParameters.pullThread = option
+                                selectedItem = option.toString()
+                                isMenuOpen = false
+                            }
+                        ) {
+                            Text(option.toString())
+                        }
                     }
                 }
             }
         }
+    }
+}
 
-        //две кнопки
+
+//две кнопки
+@Composable
+fun ButtonContent(onClickRun: () -> Unit, onClickCancel: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
         Row(
             modifier = Modifier
                 .padding(top = 32.dp)
@@ -158,7 +185,7 @@ fun ComposeScreen() {
         ) {
             Button(
                 onClick = {
-
+                    onClickRun()
                 },
                 modifier = Modifier
                     .padding(end = 64.dp)
@@ -171,7 +198,7 @@ fun ComposeScreen() {
 
             Button(
                 onClick = {
-
+                    onClickCancel()
                 }
             ) {
                 Text(
@@ -182,5 +209,6 @@ fun ComposeScreen() {
         }
     }
 }
+
 
 
