@@ -1,0 +1,12 @@
+package ru.itis.application6.utils
+
+object Properties {
+
+    const val AUTHORIZATION_FRAGMENT_TAG = "AUTHORIZATION_FRAGMENT"
+    const val REGISTRATION_FRAGMENT_TAG = "REGISTRATION_FRAGMENT"
+    const val MAIN_FRAGMENT_TAG = "MAIN_FRAGMENT"
+    const val ADD_CONTENT_FRAGMENT_TAG = "ADD_CONTENT_FRAGMENT"
+    const val SHARED_PREF_NAME = "AUTHORIZATION_PREF"
+    const val DATABASE_NAME = "SONG_DATABASE"
+    const val USER_NICK_SHARED_PREF = "USER_NICK_SP"
+}
