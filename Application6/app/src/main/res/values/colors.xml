@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="title_color">#7935E9</color>
+    <color name="icons_color">#742E0971</color>
+    <color name="icons_background_color">#C8B49CD9</color>
+    <color name="borderless_btn_color">#B590F1</color>
+    <color name="song_author_color">#7B6D91</color>
+    <color name="song_year_color">#C5B2DF</color>
+</resources>

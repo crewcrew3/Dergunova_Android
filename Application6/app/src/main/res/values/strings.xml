@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Application6</string>
+
+    <string name="hint_nickname">Никнэйм</string>
+    <string name="hint_password">Пароль</string>
+    <string name="hint_age">Возраст</string>
+    <string name="hint_about_yourself">О себе</string>
+    <string name="hint_song_name">Название песни</string>
+    <string name="hint_song_author">Автор песни</string>
+    <string name="hint_song_year">Год</string>
+    <string name="hint_song_poster_url">Ссылка на постер</string>
+    <string name="hint_song_lyrics">Текст песни</string>
+
+    <string name="title_authorization_screen">Вход</string>
+    <string name="title_registration_screen">Регистрация</string>
+    <string name="title_add_content_screen">Добавление новой песни</string>
+    <string name="title_main_screen">Главная</string>
+
+    <string name="btn_authorization_text">Войти</string>
+    <string name="btn_log_out_text">Выйти из профиля</string>
+    <string name="btn_registration_text">Зарегистрироваться</string>
+    <string name="btn_add_new_item">Добавить</string>
+    <string name="fab_text">Добавить песню</string>
+
+    <string name="alert_dialog_delete_title">Подтвердите удаление</string>
+    <string name="alert_dialog_delete_message">Вы точно хотите удалить этот элемент?</string>
+    <string name="alert_dialog_delete_positive_button_text">Да</string>
+    <string name="alert_dialog_delete_negative_button_text">Нет</string>
+
+    <string name="alert_dialog_incorrect_data_title">Неверно введенные данные</string>
+    <string name="alert_dialog_incorrect_data_message">Введите корректные данные</string>
+    <string name="alert_dialog_incorrect_data_positive_button_text">Ок</string>
+
+    <string name="alert_dialog_user_is_already_exists_title">Ошибка авторизации</string>
+    <string name="alert_dialog_user_is_already_exists_message">Такой пользователь уже существует</string>
+    <string name="alert_dialog_user_is_already_exists_positive_button_text">Ок</string>
+
+    <string name="tools_item_song_name">Killer Queen</string>
+    <string name="tools_item_song_author">Queen</string>
+    <string name="tools_item_song_year">1974</string>
+    <string name="text_unknown">Unknown</string>
+</resources>
