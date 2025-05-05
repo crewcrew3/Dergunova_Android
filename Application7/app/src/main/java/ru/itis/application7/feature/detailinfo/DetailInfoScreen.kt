@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -35,6 +36,7 @@ import ru.itis.application7.core.domain.model.MainDataModel
 import ru.itis.application7.core.domain.model.WeatherDataModel
 import ru.itis.application7.core.domain.model.WindDataModel
 import ru.itis.application7.core.ui.BaseScreen
+import ru.itis.application7.core.ui.components.ShimmerCustom
 import ru.itis.application7.core.ui.theme.Application7Theme
 import ru.itis.application7.core.ui.theme.CustomDimensions
 import ru.itis.application7.core.ui.theme.CustomStyles
@@ -53,6 +55,9 @@ fun DetailInfoScreen(
             Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
         }
     }
+
+    val isContentLoading by viewModel.isContentLoadingFlow.collectAsState(initial = false)
+
     LaunchedEffect(Unit) {
         viewModel.getCurrentWeatherByCityName(cityName)
     }
@@ -98,12 +103,21 @@ fun DetailInfoScreen(
                 .fillMaxSize()
         ) {
             item {
-                Text(
-                    text = weatherItem.cityName,
-                    style = CustomStyles.detailInfoCityNameHeader,
-                    modifier = Modifier
-                        .padding(top = 40.dp, start = 28.dp)
-                )
+                if (isContentLoading) {
+                    ShimmerCustom(
+                        modifier = Modifier
+                            .padding(top = 40.dp, start = 28.dp)
+                            .fillMaxWidth()
+                            .height(CustomDimensions.detailInfoCityNameShimmerHeight)
+                    )
+                } else {
+                    Text(
+                        text = weatherItem.cityName,
+                        style = CustomStyles.detailInfoCityNameHeader,
+                        modifier = Modifier
+                            .padding(top = 40.dp, start = 28.dp)
+                    )
+                }
             }
             item {
                 LazyRow(
@@ -111,83 +125,111 @@ fun DetailInfoScreen(
                         .padding(top = 48.dp)
                         .fillMaxWidth()
                 ) {
-                    items(weatherItem.weather) { item ->
-                        ListRowItem(item = item)
+                    if (isContentLoading) {
+                        items(viewModel.numberOfLoadingRowItems) {
+                            ShimmerCustom(
+                                modifier = Modifier
+                                    .padding(CustomDimensions.paddingCardInList)
+                                    .width(CustomDimensions.listRowItemWidth)
+                            )
+                        }
+                    } else {
+                        items(weatherItem.weather) { item ->
+                            ListRowItem(item = item)
+                        }
                     }
                 }
             }
             item {
-                Card(
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface,
-                        contentColor = MaterialTheme.colorScheme.onSurface,
-                    ),
-                    modifier = Modifier
-                        .padding(CustomDimensions.paddingCardInList)
-                        .fillMaxWidth()
-                ) {
-                    Column(
+                if (isContentLoading) {
+                    ShimmerCustom(
                         modifier = Modifier
-                            .padding(CustomDimensions.paddingCardContent)
+                            .padding(CustomDimensions.paddingCardInList)
+                            .height(CustomDimensions.cardDetailInfoMainShimmerHeight)
+                            .fillMaxWidth()
+                    )
+                } else {
+                    Card(
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface,
+                            contentColor = MaterialTheme.colorScheme.onSurface,
+                        ),
+                        modifier = Modifier
+                            .padding(CustomDimensions.paddingCardInList)
+                            .fillMaxWidth()
                     ) {
-                        Text( //пробелы в конце у строк игнорируются, поэтому таким образом я добавляю его здесь
-                            text = "${stringResource(R.string.temp_prefix)} " +
-                                    weatherItem.main.temp.toString() +
-                                    " ${stringResource(R.string.temp_postfix)}",
-                            style = CustomStyles.p2,
+                        Column(
                             modifier = Modifier
                                 .padding(CustomDimensions.paddingCardContent)
-                        )
-                        Text(
-                            text = "${stringResource(R.string.feels_like_prefix)} " +
-                                    weatherItem.main.feelsLike.toString() +
-                                    " ${stringResource(R.string.temp_postfix)}",
-                            style = CustomStyles.p2,
-                            modifier = Modifier
-                                .padding(CustomDimensions.paddingCardContent)
-                        )
-                        Text(
-                            text = "${stringResource(R.string.pressure_prefix)} " +
-                                    weatherItem.main.pressure.toString() +
-                                    " ${stringResource(R.string.pressure_postfix)}",
-                            style = CustomStyles.p2,
-                            modifier = Modifier
-                                .padding(CustomDimensions.paddingCardContent)
-                        )
-                        Text(
-                            text = "${stringResource(R.string.humidity_prefix)} " +
-                                    weatherItem.main.humidity.toString() +
-                                    " ${stringResource(R.string.humidity_postfix)}",
-                            style = CustomStyles.p2,
-                            modifier = Modifier
-                                .padding(CustomDimensions.paddingCardContent)
-                        )
+                        ) {
+                            Text( //пробелы в конце у строк игнорируются, поэтому таким образом я добавляю его здесь
+                                text = "${stringResource(R.string.temp_prefix)} " +
+                                        weatherItem.main.temp.toString() +
+                                        " ${stringResource(R.string.temp_postfix)}",
+                                style = CustomStyles.p2,
+                                modifier = Modifier
+                                    .padding(CustomDimensions.paddingCardContent)
+                            )
+                            Text(
+                                text = "${stringResource(R.string.feels_like_prefix)} " +
+                                        weatherItem.main.feelsLike.toString() +
+                                        " ${stringResource(R.string.temp_postfix)}",
+                                style = CustomStyles.p2,
+                                modifier = Modifier
+                                    .padding(CustomDimensions.paddingCardContent)
+                            )
+                            Text(
+                                text = "${stringResource(R.string.pressure_prefix)} " +
+                                        weatherItem.main.pressure.toString() +
+                                        " ${stringResource(R.string.pressure_postfix)}",
+                                style = CustomStyles.p2,
+                                modifier = Modifier
+                                    .padding(CustomDimensions.paddingCardContent)
+                            )
+                            Text(
+                                text = "${stringResource(R.string.humidity_prefix)} " +
+                                        weatherItem.main.humidity.toString() +
+                                        " ${stringResource(R.string.humidity_postfix)}",
+                                style = CustomStyles.p2,
+                                modifier = Modifier
+                                    .padding(CustomDimensions.paddingCardContent)
+                            )
+                        }
                     }
                 }
             }
 
             item {
-                Card(
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface,
-                        contentColor = MaterialTheme.colorScheme.onSurface,
-                    ),
-                    modifier = Modifier
-                        .padding(CustomDimensions.paddingCardInList)
-                        .fillMaxWidth()
-                ) {
-                    Column(
+                if (isContentLoading) {
+                    ShimmerCustom(
                         modifier = Modifier
-                            .padding(CustomDimensions.paddingCardContent)
+                            .padding(CustomDimensions.paddingCardInList)
+                            .height(CustomDimensions.cardDetailInfoWindShimmerHeight)
+                            .fillMaxWidth()
+                    )
+                } else {
+                    Card(
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface,
+                            contentColor = MaterialTheme.colorScheme.onSurface,
+                        ),
+                        modifier = Modifier
+                            .padding(CustomDimensions.paddingCardInList)
+                            .fillMaxWidth()
                     ) {
-                        Text(
-                            text = "${stringResource(R.string.wind_speed_prefix)} " +
-                                    weatherItem.wind.speed.toString() +
-                                    " ${stringResource(R.string.wind_speed_postfix)}",
-                            style = CustomStyles.p2,
+                        Column(
                             modifier = Modifier
                                 .padding(CustomDimensions.paddingCardContent)
-                        )
+                        ) {
+                            Text(
+                                text = "${stringResource(R.string.wind_speed_prefix)} " +
+                                        weatherItem.wind.speed.toString() +
+                                        " ${stringResource(R.string.wind_speed_postfix)}",
+                                style = CustomStyles.p2,
+                                modifier = Modifier
+                                    .padding(CustomDimensions.paddingCardContent)
+                            )
+                        }
                     }
                 }
             }

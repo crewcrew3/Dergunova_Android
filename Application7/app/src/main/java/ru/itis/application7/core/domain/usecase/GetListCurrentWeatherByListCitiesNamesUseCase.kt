@@ -10,6 +10,7 @@ import ru.itis.application7.core.domain.exception.EmptyWeatherException
 import ru.itis.application7.core.domain.model.CurrentWeatherModel
 import ru.itis.application7.core.domain.repository.CurrentWeatherRepository
 import ru.itis.application7.core.utils.ExceptionsMessages
+import ru.itis.application7.core.utils.OtherProperties
 import javax.inject.Inject
 
 class GetListCurrentWeatherByListCitiesNamesUseCase @Inject constructor(
@@ -30,10 +31,13 @@ class GetListCurrentWeatherByListCitiesNamesUseCase @Inject constructor(
 
     private fun checkErrors(weather: CurrentWeatherModel) {
         val errors = mutableListOf<Throwable>()
-        if (weather.cityName.isBlank()) {
+        if (weather.cityName == OtherProperties.EMPTY_CITY_NAME) {
             errors.add(EmptyCurrentWeatherException(ExceptionsMessages.EMPTY_CURRENT_WEATHER))
         }
-        if (weather.weather.isEmpty() || weather.weather.any { item -> item.main.isBlank()}) {
+        if (weather.weather.any { item ->
+                item.main == OtherProperties.EMPTY_WEATHER ||
+                        item.description == OtherProperties.EMPTY_WEATHER_DESC
+            }) {
             errors.add(EmptyWeatherException(ExceptionsMessages.EMPTY_WEATHER))
         }
         if (weather.main.temp == -100f) {

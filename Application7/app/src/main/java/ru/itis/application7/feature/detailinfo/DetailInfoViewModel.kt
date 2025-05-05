@@ -29,8 +29,14 @@ class DetailInfoViewModel @Inject constructor(
     private val _errorHttpFlow = MutableSharedFlow<List<String?>>()
     val errorHttpFlow: SharedFlow<List<String?>> = _errorHttpFlow.asSharedFlow()
 
+    private val _isContentLoadingFlow = MutableStateFlow(false)
+    val isContentLoadingFlow = _isContentLoadingFlow.asStateFlow()
+
+    var numberOfLoadingRowItems = 3 //я не знаю как по факту посчитать сколько будет элементов в списке погоды, поэтому по умолчанию буду отображать 3
+
     fun getCurrentWeatherByCityName(cityName: String) {
         viewModelScope.launch {
+            _isContentLoadingFlow.value = true
             runCatching {
                 getCurrentWeatherByCityNameUseCase(cityName)
             }.onSuccess { weatherModel ->
@@ -44,6 +50,9 @@ class DetailInfoViewModel @Inject constructor(
                         _errorFlow.emit(exception.message ?: ExceptionsMessages.UNKNOWN_ERROR)
                     }
                 }
+            }.also {
+                //numberOfLoadingRowItems = 0
+                _isContentLoadingFlow.value = false
             }
         }
     }

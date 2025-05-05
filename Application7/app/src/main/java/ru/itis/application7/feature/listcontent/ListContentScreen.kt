@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
@@ -33,6 +34,7 @@ import ru.itis.application7.core.domain.model.MainDataModel
 import ru.itis.application7.core.domain.model.WeatherDataModel
 import ru.itis.application7.core.domain.model.WindDataModel
 import ru.itis.application7.core.ui.components.InputFieldCustom
+import ru.itis.application7.core.ui.components.ShimmerCustom
 import ru.itis.application7.core.ui.theme.Application7Theme
 import ru.itis.application7.core.ui.theme.CustomDimensions
 import ru.itis.application7.core.ui.theme.CustomStyles
@@ -46,6 +48,8 @@ fun ListContentScreen(
 
     // Подписка на список погоды (StateFlow)
     val list by viewModel.weatherInfoFlow.collectAsState(initial = emptyList())
+
+    val isContentLoading by viewModel.isContentLoadingFlow.collectAsState(initial = false)
 
     val isInputError by viewModel.errorInputFlow.collectAsState(initial = false)
 
@@ -117,10 +121,21 @@ fun ListContentScreen(
                     )
                 }
 
-                items(list) { item ->
-                    ListItem(
-                        item = item,
-                        onClick = { onItemClick(item)})
+                if (isContentLoading) {
+                    items(viewModel.numberOfLoadingItems) {
+                        ShimmerCustom(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(CustomDimensions.cardListContentShimmerHeight)
+                                .padding(CustomDimensions.paddingCardInList)
+                        )
+                    }
+                } else {
+                    items(list) { item ->
+                        ListItem(
+                            item = item,
+                            onClick = { onItemClick(item) })
+                    }
                 }
             }
         }

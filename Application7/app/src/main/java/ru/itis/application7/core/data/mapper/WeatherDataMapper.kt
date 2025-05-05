@@ -2,6 +2,7 @@ package ru.itis.application7.core.data.mapper
 
 import ru.itis.application7.core.domain.model.WeatherDataModel
 import ru.itis.application7.core.network.pojo.response.WeatherData
+import ru.itis.application7.core.utils.OtherProperties
 import javax.inject.Inject
 
 class WeatherDataMapper @Inject constructor() {
@@ -12,8 +13,8 @@ class WeatherDataMapper @Inject constructor() {
                 item?.let {
                     result.add(
                         WeatherDataModel(
-                            main = item.main ?: "",
-                            description = item.description ?: "",
+                            main = item.main ?: OtherProperties.EMPTY_WEATHER,
+                            description = item.description ?: OtherProperties.EMPTY_WEATHER_DESC,
                         )
                     )
                 } ?: WeatherDataModel.EMPTY

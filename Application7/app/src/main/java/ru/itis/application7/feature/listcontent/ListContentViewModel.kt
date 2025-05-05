@@ -33,17 +33,27 @@ class ListContentViewModel @Inject constructor(
     private val _errorHttpFlow = MutableSharedFlow<List<String?>>()
     val errorHttpFlow: SharedFlow<List<String?>> = _errorHttpFlow.asSharedFlow()
 
-    fun  getCurrentWeatherByCitiesNames(citiesNamesStr: String) {
+    private val _isContentLoadingFlow = MutableStateFlow(false)
+    val isContentLoadingFlow = _isContentLoadingFlow.asStateFlow()
+
+    var numberOfLoadingItems = 0
+
+    fun getCurrentWeatherByCitiesNames(citiesNamesStr: String) {
         viewModelScope.launch {
-            val regex = Regex("^[a-zA-Zа-яА-Я]+(\\s*,\\s*[a-zA-Zа-яА-Я]+)*$")
+            _isContentLoadingFlow.value = true
+            val regex = Regex("^\\s*([a-zA-Zа-яА-Я.](\\s+[a-zA-Zа-яА-Я.]+)?)+(\\s*,\\s*([a-zA-Zа-яА-Я.](\\s+[a-zA-Zа-яА-Я.]+)?)+)*\\s*$")
             if (!regex.matches(citiesNamesStr)) {
                 _errorInputFlow.emit(true)
+                _isContentLoadingFlow.value = false
             } else {
                 _errorInputFlow.emit(false)
                 val citiesNames = citiesNamesStr
+                    .replace(Regex("\\s+"), " ") //если в слове 1 и более пробел, заменяем на 1 пробел
                     .split(",")
                     .map { it.trim() }
                     .filter { it.isNotBlank() }
+
+                numberOfLoadingItems = citiesNames.size
 
                 runCatching {
                     getListCurrentWeatherByListCitiesNamesUseCase(citiesNames)
@@ -66,6 +76,9 @@ class ListContentViewModel @Inject constructor(
                             _errorFlow.emit(exception.message ?: ExceptionsMessages.UNKNOWN_ERROR)
                         }
                     }
+                }.also { //все сбрасываем в конце: и в случае успеха, и в случае ошибки
+                    numberOfLoadingItems = 0
+                    _isContentLoadingFlow.value = false
                 }
             }
         }
