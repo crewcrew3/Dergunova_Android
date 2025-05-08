@@ -3,32 +3,25 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlin.serialization.plugin)
-    alias(libs.plugins.gradle.secrets.plugin)
     alias(libs.plugins.hilt.plugin)
+    alias(libs.plugins.gradle.secrets.plugin)
 }
 
 android {
     namespace = "ru.itis.application7"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "ru.itis.application7"
-        minSdk = 26
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        versionCode = rootProject.extra.get("versionCode") as Int
+        versionName = rootProject.extra.get("versionName") as String
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        buildConfigField(
-            "String",
-            "OPEN_WEATHER_BASE_URL",
-            "\"https://api.openweathermap.org/data/2.5/\""
-        )
     }
 
     buildTypes {
@@ -49,7 +42,6 @@ android {
     }
     buildFeatures {
         compose = true
-        buildConfig = true
     }
     packaging {
         resources {
@@ -65,38 +57,28 @@ composeCompiler {
 
 dependencies {
 
+    implementation(projects.core)
+    implementation(projects.navigation)
+    implementation(projects.feature.registration)
+    implementation(projects.feature.authorization)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
+    //compose
+    implementation(libs.bundles.compose.deps)
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation(libs.coil.compose)
-    implementation(libs.coil.network.okhttp)
+    //корутины
     implementation(libs.coroutines.core)
-    implementation(libs.room)
-    implementation(libs.room.ktx)
-    ksp(libs.room.ksp)
+
     debugImplementation(libs.leak.canary)
-    implementation(libs.nav.component)
-    implementation(libs.kotlin.serialization.json)
-    implementation(libs.androidx.material)
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
+
+    //DI
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
-    implementation(libs.gson)
     implementation(libs.androidx.hilt.nav.compose)
 }
