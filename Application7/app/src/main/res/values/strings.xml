@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Application7</string>
+    <string name="list_content_header">Погода</string>
+    <string name="preview_top_bar_header">Заголовок</string>
+    <string name="label_input_field">Введите названия городов через запятую</string>
+    <string name="hint_input_field">Kazan, Moscow..</string>
+    <string name="alert_title_unknown_error_code">Неизвестный код ошибки</string>
+    <string name="alert_title_unknown_error_message">Неизвестная ошибка</string>
+    <string name="alert_button_ok">Ок</string>
+    <string name="temp_prefix">Температура:</string>
+    <string name="temp_postfix"> ℃</string>
+    <string name="feels_like_prefix">Ощущается как: </string>
+    <string name="pressure_prefix">Давление:</string>
+    <string name="pressure_postfix"> hPa</string>
+    <string name="humidity_prefix">Влажность: </string>
+    <string name="humidity_postfix"> %</string>
+    <string name="wind_speed_prefix">Скорость ветра: </string>
+    <string name="wind_speed_postfix"> м/с</string>
+</resources>
