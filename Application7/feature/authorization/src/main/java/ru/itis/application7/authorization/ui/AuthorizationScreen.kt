@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,6 +21,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import ru.itis.application7.authorization.state.AuthorizationScreenEvent
+import ru.itis.application7.authorization.state.AuthorizationScreenState
 import ru.itis.application7.core.R
 import ru.itis.application7.core.ui.BaseScreen
 import ru.itis.application7.core.ui.components.InputFieldCustom
@@ -37,17 +38,20 @@ fun AuthorizationScreen(
     viewModel: AuthorizationViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
-    LaunchedEffect(Unit) {
-        viewModel.errorFlow.collect { errorMessage ->
-            Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
-        }
-    }
 
-    val isAuthSuccess by viewModel.authSuccessFlow.collectAsState(initial = false)
-    LaunchedEffect(isAuthSuccess) {
-        if (isAuthSuccess) {
+    val pageState by viewModel.pageState.collectAsState(initial = AuthorizationScreenState.Initial)
+    when (pageState) {
+        is AuthorizationScreenState.Error -> {
+            Toast.makeText(
+                context,
+                (pageState as AuthorizationScreenState.Error).message,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        is AuthorizationScreenState.OnAuthSuccess -> {
             toListContentScreen()
         }
+        else -> Unit
     }
 
     var nickname by remember { mutableStateOf("") }
@@ -86,9 +90,11 @@ fun AuthorizationScreen(
                 modifier = Modifier
                     .padding(top = CustomDimensions.basePadding)
             ) {
-                viewModel.authUser(
-                    nickname = nickname,
-                    password = password,
+                viewModel.reduce(
+                    event = AuthorizationScreenEvent.OnLogIn(
+                        nickname = nickname,
+                        password = password
+                    )
                 )
             }
 

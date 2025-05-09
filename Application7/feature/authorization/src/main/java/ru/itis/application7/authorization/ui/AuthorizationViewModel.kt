@@ -4,10 +4,12 @@ import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import ru.itis.application7.authorization.state.AuthorizationScreenEvent
+import ru.itis.application7.authorization.state.AuthorizationScreenState
+import ru.itis.application7.core.domain.exception.UnknownEventException
 import ru.itis.application7.core.domain.exception.UnregisteredUserException
 import ru.itis.application7.core.domain.exception.WrongPasswordException
 import ru.itis.application7.core.domain.model.UserModel
@@ -22,13 +24,17 @@ class AuthorizationViewModel@Inject constructor(
     private val sharedPref: SharedPreferences,
 ) : ViewModel() {
 
-    private val _errorFlow = MutableSharedFlow<String?>()
-    val errorFlow: SharedFlow<String?> = _errorFlow.asSharedFlow()
+    private val _pageState = MutableStateFlow<AuthorizationScreenState>(value = AuthorizationScreenState.Initial)
+    val pageState = _pageState.asStateFlow()
 
-    private val _authSuccessFlow = MutableSharedFlow<Boolean>()
-    val authSuccessFlow: SharedFlow<Boolean> = _authSuccessFlow.asSharedFlow()
+    fun reduce(event: AuthorizationScreenEvent) {
+        when (event) {
+            is AuthorizationScreenEvent.OnLogIn -> authUser(nickname = event.nickname, password = event.password)
+            else -> throw UnknownEventException(ExceptionsMessages.UNKNOWN_EVENT)
+        }
+    }
 
-    fun authUser(nickname: String, password: String) {
+    private fun authUser(nickname: String, password: String) {
         viewModelScope.launch {
             runCatching {
                 authorizeUserUseCase(
@@ -39,14 +45,12 @@ class AuthorizationViewModel@Inject constructor(
                 )
             }.onSuccess {
                 sharedPref.edit().putString(OtherProperties.USER_NICK_SHARED_PREF, nickname).apply()
-                _authSuccessFlow.emit(true)
+                _pageState.value = AuthorizationScreenState.OnAuthSuccess
             }.onFailure { exception ->
-                _authSuccessFlow.emit(false)
                 when (exception) {
-                    is UnregisteredUserException -> _errorFlow.emit(exception.message)
-                    is WrongPasswordException -> _errorFlow.emit(exception.message)
-                    else -> _errorFlow.emit(exception.message ?: ExceptionsMessages.UNKNOWN_ERROR)
-                }
+                    is UnregisteredUserException -> { _pageState.value = AuthorizationScreenState.Error(exception.message) }
+                    is WrongPasswordException ->  { _pageState.value = AuthorizationScreenState.Error(exception.message) }
+                    else ->  { _pageState.value = AuthorizationScreenState.Error(exception.message ?: ExceptionsMessages.UNKNOWN_ERROR) }                }
             }
         }
     }

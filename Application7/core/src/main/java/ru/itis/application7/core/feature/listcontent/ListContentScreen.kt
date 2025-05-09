@@ -21,18 +21,16 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.itis.application7.core.domain.model.CurrentWeatherModel
 import ru.itis.application7.core.domain.model.MainDataModel
 import ru.itis.application7.core.domain.model.WeatherDataModel
 import ru.itis.application7.core.domain.model.WindDataModel
+import ru.itis.application7.core.feature.listcontent.state.ListContentScreenEvent
+import ru.itis.application7.core.feature.listcontent.state.ListContentScreenState
 import ru.itis.application7.core.ui.components.InputFieldCustom
 import ru.itis.application7.core.ui.components.ShimmerCustom
 import ru.itis.application7.core.ui.theme.Application7Theme
@@ -47,52 +45,39 @@ fun ListContentScreen(
     viewModel: ListContentViewModel = hiltViewModel(),
 ) {
 
-    // Подписка на список погоды (StateFlow)
-    val list by viewModel.weatherInfoFlow.collectAsState(initial = emptyList())
-
-    val isContentLoading by viewModel.isContentLoadingFlow.collectAsState(initial = false)
-
-    val isInputError by viewModel.errorInputFlow.collectAsState(initial = false)
-
-    // Подписка на ошибки для отображения Toast (SharedFlow)
     val context = LocalContext.current
-    LaunchedEffect(Unit) {
-        viewModel.errorFlow.collect { errorMessage ->
-            Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
-        }
-    }
 
-    val httpErrorList by viewModel.errorHttpFlow.collectAsState(initial = emptyList())
-    var showDialog by remember { mutableStateOf(false) }
-    LaunchedEffect(httpErrorList) {
-        if (httpErrorList.isNotEmpty()) {
-            showDialog = true
+    val pageState by viewModel.pageState.collectAsState(initial = ListContentScreenState.Initial)
+    when (pageState) {
+        is ListContentScreenState.Error -> {
+            Toast.makeText(context, (pageState as ListContentScreenState.Error).message, Toast.LENGTH_SHORT).show()
         }
-    }
-
-    if (showDialog) {
-        AlertDialog(
-            onDismissRequest = { showDialog = false },
-            title = {
-                Text(
-                    httpErrorList.getOrNull(0)
-                        ?: stringResource(R.string.alert_title_unknown_error_code)
-                )
-            },
-            text = {
-                Text(
-                    httpErrorList.getOrNull(1)
-                        ?: stringResource(R.string.alert_title_unknown_error_message)
-                )
-            },
-            confirmButton = {
-                TextButton(onClick = {
-                    showDialog = false
-                }) {
-                    Text(stringResource(R.string.alert_button_ok))
+        is ListContentScreenState.ErrorHttp -> {
+            val httpErrorList = (pageState as ListContentScreenState.ErrorHttp).message
+            AlertDialog(
+                onDismissRequest = { viewModel.reduce(ListContentScreenEvent.OnAlertDialogClosed) },
+                title = {
+                    Text(
+                        httpErrorList.getOrNull(0)
+                            ?: stringResource(R.string.alert_title_unknown_error_code)
+                    )
+                },
+                text = {
+                    Text(
+                        httpErrorList.getOrNull(1)
+                            ?: stringResource(R.string.alert_title_unknown_error_message)
+                    )
+                },
+                confirmButton = {
+                    TextButton(onClick = {
+                        viewModel.reduce(ListContentScreenEvent.OnAlertDialogClosed)
+                    }) {
+                        Text(stringResource(R.string.alert_button_ok))
+                    }
                 }
-            }
-        )
+            )
+        }
+        else -> Unit
     }
 
     BaseScreen(
@@ -100,7 +85,7 @@ fun ListContentScreen(
         topBarHeader = stringResource(R.string.list_content_header),
         isFloatingActionButton = true,
         onFloatingActBtnClick = {
-            viewModel.logOutUser()
+            viewModel.reduce(event = ListContentScreenEvent.OnLogOut)
             toAuthorizationScreen()
         },
         floatingBtnText = stringResource(R.string.log_out_action)
@@ -120,29 +105,33 @@ fun ListContentScreen(
                         labelText = stringResource(R.string.label_input_field),
                         placeholderText = stringResource(R.string.hint_input_field),
                         onDone = { citiesNames ->
-                            viewModel.getCurrentWeatherByCitiesNames(citiesNames)
+                            viewModel.reduce(event = ListContentScreenEvent.OnSearchQueryChanged(query = citiesNames))
                         },
-                        isError = isInputError,
+                        isError = (pageState is ListContentScreenState.ErrorInput),
                         modifier = Modifier
                             .padding(CustomDimensions.paddingCardInList)
                     )
                 }
-
-                if (isContentLoading) {
-                    items(viewModel.numberOfLoadingItems) {
-                        ShimmerCustom(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(CustomDimensions.cardListContentShimmerHeight)
-                                .padding(CustomDimensions.paddingCardInList)
-                        )
+                when (pageState) {
+                    is ListContentScreenState.Loading -> {
+                        items(viewModel.numberOfLoadingItems) {
+                            ShimmerCustom(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(CustomDimensions.cardListContentShimmerHeight)
+                                    .padding(CustomDimensions.paddingCardInList)
+                            )
+                        }
                     }
-                } else {
-                    items(list) { item ->
-                        ListItem(
-                            item = item,
-                            onClick = { onItemClick(item) })
+                    is ListContentScreenState.SearchResult -> {
+                        val list = (pageState as ListContentScreenState.SearchResult).result
+                        items(list) { item ->
+                            ListItem(
+                                item = item,
+                                onClick = { onItemClick(item) })
+                        }
                     }
+                    else -> {}
                 }
             }
         }

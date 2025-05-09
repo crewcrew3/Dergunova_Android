@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +28,8 @@ import ru.itis.application7.core.ui.components.PrimaryButtonCustom
 import ru.itis.application7.core.ui.theme.Application7Theme
 import ru.itis.application7.core.ui.theme.CustomDimensions
 import ru.itis.application7.core.ui.theme.CustomStyles
+import ru.itis.application7.registration.state.RegistrationScreenEvent
+import ru.itis.application7.registration.state.RegistrationScreenState
 
 @Composable
 fun RegistrationScreen(
@@ -37,20 +38,20 @@ fun RegistrationScreen(
     viewModel: RegistrationViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
-    LaunchedEffect(Unit) {
-        viewModel.errorFlow.collect { errorMessage ->
-            Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+
+    val pageState by viewModel.pageState.collectAsState(initial = RegistrationScreenState.Initial)
+    when (pageState) {
+        is RegistrationScreenState.Error -> {
+            Toast.makeText(
+                context,
+                (pageState as RegistrationScreenState.Error).message,
+                Toast.LENGTH_SHORT
+            ).show()
         }
-    }
-
-    val isNickInputError by viewModel.errorNickInputFlow.collectAsState(initial = false)
-    val isPassInputError by viewModel.errorPassInputFlow.collectAsState(initial = false)
-
-    val isRegisterSuccess by viewModel.registerSuccessFlow.collectAsState(initial = false)
-    LaunchedEffect(isRegisterSuccess) {
-        if (isRegisterSuccess) {
+        is RegistrationScreenState.OnRegistrationSuccess -> {
             toListContentScreen()
         }
+        else -> Unit
     }
 
     var nickname by remember { mutableStateOf("") }
@@ -73,7 +74,7 @@ fun RegistrationScreen(
             InputFieldCustom(
                 labelText = stringResource(R.string.nickname_text),
                 onValueChange = {nickname = it},
-                isError = isNickInputError,
+                isError = (pageState is RegistrationScreenState.ErrorNickInput),
                 modifier = Modifier
                     .padding(top = CustomDimensions.basePadding)
             )
@@ -81,7 +82,7 @@ fun RegistrationScreen(
             InputFieldCustom(
                 labelText = stringResource(R.string.password_text),
                 onValueChange = {password = it},
-                isError = isPassInputError,
+                isError = (pageState is RegistrationScreenState.ErrorPassInput),
                 modifier = Modifier
                     .padding(top = CustomDimensions.basePadding)
             )
@@ -91,9 +92,11 @@ fun RegistrationScreen(
                 modifier = Modifier
                     .padding(top = CustomDimensions.basePadding)
             ) {
-                viewModel.registerUser(
-                    nickname = nickname,
-                    password = password,
+                viewModel.reduce(
+                    event = RegistrationScreenEvent.OnSignUp(
+                        nickname = nickname,
+                        password = password,
+                    )
                 )
             }
 
