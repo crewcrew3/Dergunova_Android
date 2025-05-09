@@ -8,7 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import ru.itis.application7.authorization.ui.AuthorizationScreen
 import ru.itis.application7.core.feature.detailinfo.DetailInfoScreen
-import ru.itis.application7.core.feature.listcontent.ListContentScreen
+import ru.itis.application7.core.feature.listcontent.ui.ListContentScreen
 import ru.itis.application7.registration.ui.RegistrationScreen
 
 @Composable

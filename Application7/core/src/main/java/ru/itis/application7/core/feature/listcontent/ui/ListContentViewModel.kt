@@ -1,4 +1,4 @@
-package ru.itis.application7.core.feature.listcontent
+package ru.itis.application7.core.feature.listcontent.ui
 
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
@@ -8,9 +8,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import ru.itis.application7.core.feature.listcontent.cache.WeatherCache
 import ru.itis.application7.core.domain.exception.CombinedWeatherException
 import ru.itis.application7.core.domain.exception.UnknownEventException
+import ru.itis.application7.core.domain.model.CurrentWeatherModel
 import ru.itis.application7.core.domain.usecase.GetListCurrentWeatherByListCitiesNamesUseCase
+import ru.itis.application7.core.feature.listcontent.SearchResultData
 import ru.itis.application7.core.feature.listcontent.state.ListContentScreenEvent
 import ru.itis.application7.core.feature.listcontent.state.ListContentScreenState
 import ru.itis.application7.core.utils.ExceptionsMessages
@@ -27,6 +30,7 @@ class ListContentViewModel @Inject constructor(
     val pageState = _pageState.asStateFlow()
 
     var numberOfLoadingItems = 0
+    private val weatherCache = WeatherCache(cooldown = 30) //в секундах
 
     fun reduce(event: ListContentScreenEvent) {
         when (event) {
@@ -53,9 +57,51 @@ class ListContentViewModel @Inject constructor(
                 numberOfLoadingItems = citiesNames.size
 
                 runCatching {
-                    getListCurrentWeatherByListCitiesNamesUseCase(citiesNames)
-                }.onSuccess { listWeatherModel ->
-                    _pageState.value = ListContentScreenState.SearchResult(result = listWeatherModel)
+                    //хотим посчитать по каким городам есть кэш.
+                    //Если в конце число городов, по которым есть кэш, не совпадет с citiesNames.size,
+                    //то нужно будет обновить кэш для всех городов
+                    var cityCacheCount = 0
+                    for (cityName in citiesNames) {
+                        if (weatherCache.isCacheValid(cityName)) {
+                            cityCacheCount++
+                        }
+                    }
+
+                    if (cityCacheCount != citiesNames.size) { //идем к апи
+                        //тут два случая: кэша нет, потому что его нет вообще, либо он истек.
+                        // В первом нам нужно положить новый кеш, во втором - обновить существующий
+                        val listWeatherModel = getListCurrentWeatherByListCitiesNamesUseCase(citiesNames)
+                        listWeatherModel.forEach { weatherModel ->
+                            if (weatherCache.isCacheExist(weatherModel.cityName)) {
+                                weatherCache.refreshCache(weatherModel.cityName, weatherModel)
+                            } else {
+                                weatherCache.put(weatherModel.cityName, weatherModel)
+                            }
+                        }
+                        weatherCache.incrementRequestCount(citiesNames) //увеличим счетчик промежуточных запросов у всеъ элементов  кэше, кроме элементов из списка citiesNames
+
+                        //Возвращаем результат поиска, который содержит итоговый список и источник(кэш или сеть)
+                        SearchResultData(
+                            listWeatherModel = listWeatherModel,
+                            source = OtherProperties.SOURCE_API,
+                        )
+                    } else { //идем в кэш
+                        println("TEST TAG - идем в кэш")
+                        val result = mutableListOf<CurrentWeatherModel>()
+                        citiesNames.forEach { cityName ->
+                            weatherCache.get(cityName)?.let { cache ->
+                                result.add(cache.payload)
+                            }
+                        } //тк это не поход к апи, мы не считаем это запросом и не увеличиваем никакие счетчики
+
+                        //Возвращаем результат!!!
+                        SearchResultData(
+                            listWeatherModel = result,
+                            source = OtherProperties.SOURCE_CACHE,
+                        )
+                    }
+                }.onSuccess { searchResultData ->
+                    _pageState.value = ListContentScreenState.SearchResult(result = searchResultData)
                 }.onFailure { exception ->
                     when (exception) {
                         is CombinedWeatherException -> {

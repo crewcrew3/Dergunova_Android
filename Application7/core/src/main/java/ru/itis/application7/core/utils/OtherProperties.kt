@@ -11,4 +11,6 @@ object OtherProperties {
     const val EMPTY_USER_PASS = ""
     const val USER_NICK_SHARED_PREF = "nickname"
     const val SHARED_PREF_NAME = "prefs"
+    const val SOURCE_CACHE = "Данные из кеша"
+    const val SOURCE_API = "Данные из сети"
 }

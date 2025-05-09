@@ -1,4 +1,4 @@
-package ru.itis.application7.core.feature.listcontent
+package ru.itis.application7.core.feature.listcontent.ui
 
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -124,7 +124,11 @@ fun ListContentScreen(
                         }
                     }
                     is ListContentScreenState.SearchResult -> {
-                        val list = (pageState as ListContentScreenState.SearchResult).result
+
+                        val toastMessage = (pageState as ListContentScreenState.SearchResult).result.source
+                        Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show()
+
+                        val list = (pageState as ListContentScreenState.SearchResult).result.listWeatherModel
                         items(list) { item ->
                             ListItem(
                                 item = item,
