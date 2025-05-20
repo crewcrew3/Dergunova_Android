@@ -65,4 +65,5 @@ dependencies {
     implementation(libs.nav.component)
     implementation(libs.kotlin.serialization.json)
 
+    implementation(libs.androidx.hilt.nav.compose)
 }

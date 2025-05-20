@@ -41,7 +41,7 @@ import ru.itis.application7.core.ui.theme.CustomStyles
 fun ListContentScreen(
     onItemClick: (CurrentWeatherModel) -> Unit,
     toAuthorizationScreen: () -> Unit,
-    previewList: List<CurrentWeatherModel> = listOf(), //для превьюшки
+    previewList: List<CurrentWeatherModel> = listOf(), //для превьюшки. Эта переменная никак не участвует в ui, поэтому я думаю стабильность тут не важна
     viewModel: ListContentViewModel = hiltViewModel(),
 ) {
 

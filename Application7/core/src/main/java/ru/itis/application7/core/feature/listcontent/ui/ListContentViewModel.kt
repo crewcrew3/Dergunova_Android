@@ -30,7 +30,7 @@ class ListContentViewModel @Inject constructor(
     val pageState = _pageState.asStateFlow()
 
     var numberOfLoadingItems = 0
-    private val weatherCache = WeatherCache(cooldown = 30) //в секундах
+    private val weatherCache = WeatherCache(cooldown = 60) //в секундах
 
     fun reduce(event: ListContentScreenEvent) {
         when (event) {
@@ -86,7 +86,6 @@ class ListContentViewModel @Inject constructor(
                             source = OtherProperties.SOURCE_API,
                         )
                     } else { //идем в кэш
-                        println("TEST TAG - идем в кэш")
                         val result = mutableListOf<CurrentWeatherModel>()
                         citiesNames.forEach { cityName ->
                             weatherCache.get(cityName)?.let { cache ->

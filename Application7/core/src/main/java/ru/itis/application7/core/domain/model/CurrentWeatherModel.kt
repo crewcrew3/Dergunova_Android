@@ -1,10 +1,12 @@
 package ru.itis.application7.core.domain.model
 
+import androidx.compose.runtime.Immutable
 import ru.itis.application7.core.utils.OtherProperties
 
+@Immutable
 data class CurrentWeatherModel(
     val cityName: String,
-    val weather: List<WeatherDataModel>,
+    val weather: List<WeatherDataModel>, //по логике этот список не будет меняться в рамках одного экземпляра
     val main: MainDataModel,
     val wind: WindDataModel,
 ) {
