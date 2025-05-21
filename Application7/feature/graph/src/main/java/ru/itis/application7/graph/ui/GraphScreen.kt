@@ -180,7 +180,7 @@ private fun GraphPlotter(
             drawContext.canvas.nativeCanvas.apply {
                 drawText(
                     value.toInt().toString(),
-                    8.dp.toPx(),
+                    16.dp.toPx() * (-1),
                     yPos + 4.dp.toPx(),
                     Paint().apply {
                         color = android.graphics.Color.BLACK
