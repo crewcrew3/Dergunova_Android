@@ -24,6 +24,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.itis.application7.core.domain.model.CurrentWeatherModel
 import ru.itis.application7.core.domain.model.MainDataModel
@@ -32,6 +33,7 @@ import ru.itis.application7.core.domain.model.WindDataModel
 import ru.itis.application7.core.feature.listcontent.state.ListContentScreenEvent
 import ru.itis.application7.core.feature.listcontent.state.ListContentScreenState
 import ru.itis.application7.core.ui.components.InputFieldCustom
+import ru.itis.application7.core.ui.components.PrimaryButtonCustom
 import ru.itis.application7.core.ui.components.ShimmerCustom
 import ru.itis.application7.core.ui.theme.Application7Theme
 import ru.itis.application7.core.ui.theme.CustomDimensions
@@ -41,6 +43,7 @@ import ru.itis.application7.core.ui.theme.CustomStyles
 fun ListContentScreen(
     onItemClick: (CurrentWeatherModel) -> Unit,
     toAuthorizationScreen: () -> Unit,
+    toGraphScreen: () -> Unit,
     previewList: List<CurrentWeatherModel> = listOf(), //для превьюшки. Эта переменная никак не участвует в ui, поэтому я думаю стабильность тут не важна
     viewModel: ListContentViewModel = hiltViewModel(),
 ) {
@@ -100,6 +103,14 @@ fun ListContentScreen(
                 modifier = Modifier
                     .padding(top = CustomDimensions.paddingTopFromTopBar)
             ) {
+                item {
+                    PrimaryButtonCustom(
+                        onBtnText = stringResource(R.string.to_graph_screen_btn_text),
+                        onClick = toGraphScreen,
+                        modifier = Modifier
+                            .padding(bottom = 8.dp)
+                    )
+                }
                 item {
                     InputFieldCustom(
                         labelText = stringResource(R.string.label_input_field),
@@ -182,7 +193,7 @@ fun ListItem(
 fun ListContentScreenPreview() {
     Application7Theme {
         ListContentScreen(
-            {}, {},
+            {}, {}, {},
             previewList = listOf(
                 CurrentWeatherModel(
                     cityName = "Kazan",
