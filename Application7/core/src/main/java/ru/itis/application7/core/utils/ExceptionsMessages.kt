@@ -17,4 +17,5 @@ object ExceptionsMessages {
     const val INCORRECT_USER_PASS_INPUT = "Некорректный ввод пароля пользователя"
     const val UNREGISTERED_USER = "Такой пользователь не зарегистрирован"
     const val WRONG_PASSWORD = "Некорректный пароль"
+    const val GRAPH_ERROR = "Точки должны быть неотрицательными и их количество должно совпадать со значением в поле выше"
 }

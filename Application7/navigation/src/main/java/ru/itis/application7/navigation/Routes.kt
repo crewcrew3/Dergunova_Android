@@ -13,3 +13,6 @@ object RegistrationRoute
 
 @Serializable
 object AuthorizationRoute
+
+@Serializable
+object GraphRoute

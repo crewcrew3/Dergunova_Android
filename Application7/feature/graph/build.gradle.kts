@@ -2,12 +2,12 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.kotlin.serialization.plugin)
-
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt.plugin)
 }
 
 android {
-    namespace = "ru.itis.application7.navigation"
+    namespace = "ru.itis.application7.graph"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -46,9 +46,6 @@ composeCompiler {
 dependencies {
 
     implementation(projects.core)
-    implementation(projects.feature.registration)
-    implementation(projects.feature.authorization)
-    implementation(projects.feature.graph)
 
     //androidx
     implementation(libs.androidx.core.ktx)
@@ -62,9 +59,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //навигация
-    implementation(libs.nav.component)
-    implementation(libs.kotlin.serialization.json)
+    //корутины
+    implementation(libs.coroutines.core)
 
+    //DI
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.nav.compose)
 }

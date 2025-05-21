@@ -9,6 +9,7 @@ import androidx.navigation.toRoute
 import ru.itis.application7.authorization.ui.AuthorizationScreen
 import ru.itis.application7.core.feature.detailinfo.DetailInfoScreen
 import ru.itis.application7.core.feature.listcontent.ui.ListContentScreen
+import ru.itis.application7.graph.ui.GraphScreen
 import ru.itis.application7.registration.ui.RegistrationScreen
 
 @Composable
@@ -61,6 +62,11 @@ fun ApplicationNavHost(
                     navController.navigate(
                         route = AuthorizationRoute
                     )
+                },
+                toGraphScreen = {
+                    navController.navigate(
+                        route = GraphRoute
+                    )
                 }
             )
         }
@@ -69,6 +75,9 @@ fun ApplicationNavHost(
             DetailInfoScreen(
                 cityName = detailInfo.cityName,
             )
+        }
+        composable<GraphRoute> {
+            GraphScreen()
         }
     }
 }

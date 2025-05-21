@@ -25,4 +25,8 @@
     <string name="sign_up_to_login_text">Уже есть аккаунт? Войдите</string>
     <string name="nickname_text">Никнейм</string>
     <string name="password_text">Пароль</string>
+    <string name="to_graph_screen_btn_text">Нарисовать график</string>
+    <string name="label_number_of_points">Количество точек</string>
+    <string name="label_points_value">Значения</string>
+    <string name="draw_graph_btn_text">Нарисовать график</string>
 </resources>

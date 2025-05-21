@@ -3,9 +3,9 @@ package ru.itis.application7.core.domain.model
 import ru.itis.application7.core.utils.OtherProperties
 
 data class UserModel(
-    var userId: Int = 0,
-    var userNickname: String,
-    var userPassword: String,
+    val userId: Int = 0,
+    val userNickname: String,
+    val userPassword: String,
 ) {
     companion object {
         val EMPTY = UserModel(
