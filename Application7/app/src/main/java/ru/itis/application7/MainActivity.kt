@@ -36,11 +36,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         if (savedInstanceState == null) {
-//            val userId = UUID.randomUUID()
-//            Firebase.crashlytics.setCustomKeys {
-//                key("userId", "$userId")
-//            }
-
             Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener(this) { task ->
                 if (!task.isSuccessful) {
                     Toast.makeText(this, "!!!", Toast.LENGTH_SHORT).show()

@@ -1,8 +1,11 @@
 package ru.itis.application7.core.feature.listcontent.ui
 
 import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,6 +21,7 @@ import ru.itis.application7.core.feature.listcontent.state.ListContentScreenEven
 import ru.itis.application7.core.feature.listcontent.state.ListContentScreenState
 import ru.itis.application7.core.utils.ExceptionsMessages
 import ru.itis.application7.core.utils.OtherProperties
+import ru.itis.application7.core.utils.RemoteConfigKey
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,7 +41,24 @@ class ListContentViewModel @Inject constructor(
             is ListContentScreenEvent.OnSearchQueryChanged -> getCurrentWeatherByCitiesNames(event.query)
             is ListContentScreenEvent.OnLogOut -> logOutUser()
             is ListContentScreenEvent.OnAlertDialogClosed -> _pageState.value = ListContentScreenState.Initial
+            is ListContentScreenEvent.OnItemClicked -> isDetailScreenEnabled(event.onItemSuccessClick)
             else -> throw UnknownEventException(ExceptionsMessages.UNKNOWN_EVENT)
+        }
+    }
+
+    private fun isDetailScreenEnabled(onItemSuccessClicked: () -> Unit) {
+        viewModelScope.launch {
+            Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    _pageState.value = ListContentScreenState.Error(message = ExceptionsMessages.COMMON_ERROR)
+                }
+                val flag = Firebase.remoteConfig.getBoolean(RemoteConfigKey.IS_DETAIL_SCREEN_ENABLED)
+                if (!flag) {
+                    _pageState.value = ListContentScreenState.Error(message = ExceptionsMessages.FUNCTIONALITY_IS_NOT_AVAILABLE)
+                } else {
+                    onItemSuccessClicked()
+                }
+            }
         }
     }
 

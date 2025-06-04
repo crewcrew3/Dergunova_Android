@@ -17,4 +17,6 @@ object OtherProperties {
 
     const val SOURCE_CACHE = "Данные из кеша"
     const val SOURCE_API = "Данные из сети"
+
+    const val DETAIL_SCREEN_ENABLED = "detail_screen_enabled"
 }
