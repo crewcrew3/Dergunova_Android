@@ -1,4 +1,4 @@
-package ru.itis.application7.firebase
+package ru.itis.application7.messaging
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -11,10 +11,13 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import dagger.hilt.android.AndroidEntryPoint
 import ru.itis.application7.MainActivity
 import ru.itis.application7.R
-import ru.itis.application7.core.utils.OtherProperties
+import ru.itis.application7.core.utils.AppLifecycleTracker
+import ru.itis.application7.core.utils.properties.OtherProperties
 
+@AndroidEntryPoint
 class ApplicationMessagingService(
     private val sharedPref: SharedPreferences,
 ) : FirebaseMessagingService() {
@@ -75,7 +78,8 @@ class ApplicationMessagingService(
     }
 
     private fun handleGraphPush(message: RemoteMessage) {
-        //if (!isAppInForeground()) return
+
+        if (!AppLifecycleTracker.isAppInForeground()) return
 
         val isAuth = sharedPref.getString(OtherProperties.USER_NICK_SHARED_PREF, null) != null
         if (!isAuth) {
@@ -83,12 +87,13 @@ class ApplicationMessagingService(
             return
         }
 
-//        val currentScreen = getCurrentScreen()
-//        if (currentScreen == Screen.GRAPH) {
-//            showToast(TOAST_MESSAGE_YOU_ALREADY_ON_SCREEN)
-//        } else {
-//            toGraphScreen()
-//        }
+        //FLAG_ACTIVITY_NEW_TASK - если вызываем startActivity() из контекста, который не является Activity (из сервиса).
+        //FLAG_ACTIVITY_SINGLE_TOP - Если Activity уже запущена в верхней части стека, то система не создаст новый экземпляр Activity.
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            putExtra(OtherProperties.INTENT_START_DESTINATION_KEY, OtherProperties.GRAPH_ROUTE_STR_KEY)
+        }
+        startActivity(intent)
     }
 
     private fun showToast(message: String) {

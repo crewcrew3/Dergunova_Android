@@ -1,4 +1,4 @@
-package ru.itis.application7.core.utils
+package ru.itis.application7.core.utils.properties
 
 object OtherProperties {
 
@@ -18,5 +18,6 @@ object OtherProperties {
     const val SOURCE_CACHE = "Данные из кеша"
     const val SOURCE_API = "Данные из сети"
 
-    const val DETAIL_SCREEN_ENABLED = "detail_screen_enabled"
+    const val INTENT_START_DESTINATION_KEY = "navigation_route"
+    const val GRAPH_ROUTE_STR_KEY = "graph_route"
 }

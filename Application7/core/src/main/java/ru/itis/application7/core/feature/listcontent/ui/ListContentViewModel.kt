@@ -1,7 +1,6 @@
 package ru.itis.application7.core.feature.listcontent.ui
 
 import android.content.SharedPreferences
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.ktx.Firebase
@@ -19,9 +18,9 @@ import ru.itis.application7.core.domain.usecase.GetListCurrentWeatherByListCitie
 import ru.itis.application7.core.feature.listcontent.SearchResultData
 import ru.itis.application7.core.feature.listcontent.state.ListContentScreenEvent
 import ru.itis.application7.core.feature.listcontent.state.ListContentScreenState
-import ru.itis.application7.core.utils.ExceptionsMessages
-import ru.itis.application7.core.utils.OtherProperties
-import ru.itis.application7.core.utils.RemoteConfigKey
+import ru.itis.application7.core.utils.properties.ExceptionsMessages
+import ru.itis.application7.core.utils.properties.OtherProperties
+import ru.itis.application7.core.utils.properties.RemoteConfigKey
 import javax.inject.Inject
 
 @HiltViewModel

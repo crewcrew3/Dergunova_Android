@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ru.itis.application7.core.utils.ExceptionsMessages
+import ru.itis.application7.core.utils.properties.ExceptionsMessages
 import ru.itis.application7.graph.state.GraphScreenEffect
 import ru.itis.application7.graph.state.GraphScreenEvent
 import ru.itis.application7.graph.state.GraphScreenState

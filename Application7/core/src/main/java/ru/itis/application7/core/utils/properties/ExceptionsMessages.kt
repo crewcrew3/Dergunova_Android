@@ -1,4 +1,4 @@
-package ru.itis.application7.core.utils
+package ru.itis.application7.core.utils.properties
 
 
 object ExceptionsMessages {

@@ -17,9 +17,9 @@ import ru.itis.application7.core.domain.exception.UnknownEventException
 import ru.itis.application7.core.domain.model.UserModel
 import ru.itis.application7.core.domain.usecase.GetUserByNicknameUseCase
 import ru.itis.application7.core.domain.usecase.RegisterUserUseCase
-import ru.itis.application7.core.utils.CrashlyticsKeys
-import ru.itis.application7.core.utils.ExceptionsMessages
-import ru.itis.application7.core.utils.OtherProperties
+import ru.itis.application7.core.utils.properties.CrashlyticsKeys
+import ru.itis.application7.core.utils.properties.ExceptionsMessages
+import ru.itis.application7.core.utils.properties.OtherProperties
 import ru.itis.application7.registration.state.RegistrationScreenEvent
 import ru.itis.application7.registration.state.RegistrationScreenState
 import javax.inject.Inject

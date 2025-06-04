@@ -18,9 +18,9 @@ import ru.itis.application7.core.domain.exception.WrongPasswordException
 import ru.itis.application7.core.domain.model.UserModel
 import ru.itis.application7.core.domain.usecase.AuthorizeUserUseCase
 import ru.itis.application7.core.domain.usecase.GetUserByNicknameUseCase
-import ru.itis.application7.core.utils.CrashlyticsKeys
-import ru.itis.application7.core.utils.ExceptionsMessages
-import ru.itis.application7.core.utils.OtherProperties
+import ru.itis.application7.core.utils.properties.CrashlyticsKeys
+import ru.itis.application7.core.utils.properties.ExceptionsMessages
+import ru.itis.application7.core.utils.properties.OtherProperties
 import javax.inject.Inject
 
 @HiltViewModel
