@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.plugin)
     alias(libs.plugins.gradle.secrets.plugin)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.crashlytics)
 }
 
 android {
@@ -81,4 +83,10 @@ dependencies {
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.nav.compose)
+
+    //firebase
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.remote.config)
 }

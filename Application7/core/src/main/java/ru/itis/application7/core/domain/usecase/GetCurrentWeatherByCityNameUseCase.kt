@@ -13,8 +13,8 @@ import ru.itis.application7.core.domain.exception.EmptyWeatherException
 import ru.itis.application7.core.domain.exception.EmptyWindSpeedException
 import ru.itis.application7.core.domain.model.CurrentWeatherModel
 import ru.itis.application7.core.domain.repository.CurrentWeatherRepository
-import ru.itis.application7.core.utils.ExceptionsMessages
-import ru.itis.application7.core.utils.OtherProperties
+import ru.itis.application7.core.utils.properties.ExceptionsMessages
+import ru.itis.application7.core.utils.properties.OtherProperties
 import javax.inject.Inject
 
 class GetCurrentWeatherByCityNameUseCase @Inject constructor(

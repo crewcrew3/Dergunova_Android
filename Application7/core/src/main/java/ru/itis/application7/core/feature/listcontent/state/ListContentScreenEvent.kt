@@ -4,4 +4,5 @@ sealed interface ListContentScreenEvent {
     data class OnSearchQueryChanged(val query: String) : ListContentScreenEvent
     data object OnLogOut : ListContentScreenEvent
     data object OnAlertDialogClosed : ListContentScreenEvent
+    data class OnItemClicked(val onItemSuccessClick: () -> Unit) : ListContentScreenEvent
 }

@@ -1,4 +1,4 @@
-package ru.itis.application7.core.utils
+package ru.itis.application7.core.utils.properties
 
 object OtherProperties {
 
@@ -9,8 +9,15 @@ object OtherProperties {
     const val EMPTY_WEATHER_DESC = "Неизвестно"
     const val EMPTY_USER_NAME = "Вася Пупкин"
     const val EMPTY_USER_PASS = ""
+
     const val USER_NICK_SHARED_PREF = "nickname"
     const val SHARED_PREF_NAME = "prefs"
+    const val SHARED_PREF_CATEGORY = "category"
+    const val SHARED_PREF_DATA = "data"
+
     const val SOURCE_CACHE = "Данные из кеша"
     const val SOURCE_API = "Данные из сети"
+
+    const val INTENT_START_DESTINATION_KEY = "navigation_route"
+    const val GRAPH_ROUTE_STR_KEY = "graph_route"
 }

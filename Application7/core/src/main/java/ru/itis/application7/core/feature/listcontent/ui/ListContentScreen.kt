@@ -143,7 +143,14 @@ fun ListContentScreen(
                         items(list) { item ->
                             ListItem(
                                 item = item,
-                                onClick = { onItemClick(item) })
+                                onClick = {
+                                    viewModel.reduce(
+                                        ListContentScreenEvent.OnItemClicked(
+                                            onItemSuccessClick = { onItemClick(item) }
+                                        )
+                                    )
+                                }
+                            )
                         }
                     }
                     else -> {}

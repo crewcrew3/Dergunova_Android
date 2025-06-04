@@ -2,7 +2,7 @@ package ru.itis.application7.core.data.remote.mapper
 
 import ru.itis.application7.core.domain.model.CurrentWeatherModel
 import ru.itis.application7.core.network.pojo.response.CurrentWeatherResponse
-import ru.itis.application7.core.utils.OtherProperties
+import ru.itis.application7.core.utils.properties.OtherProperties
 import javax.inject.Inject
 
 class CurrentWeatherResponseMapper @Inject constructor(

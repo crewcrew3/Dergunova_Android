@@ -7,7 +7,7 @@ import ru.itis.application7.core.domain.exception.UnregisteredUserException
 import ru.itis.application7.core.domain.exception.WrongPasswordException
 import ru.itis.application7.core.domain.model.UserModel
 import ru.itis.application7.core.domain.repository.UserRepository
-import ru.itis.application7.core.utils.ExceptionsMessages
+import ru.itis.application7.core.utils.properties.ExceptionsMessages
 import javax.inject.Inject
 
 class AuthorizeUserUseCase @Inject constructor(

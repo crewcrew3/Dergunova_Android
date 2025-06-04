@@ -67,4 +67,8 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.nav.compose)
 
+    //firebase
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
+
 }

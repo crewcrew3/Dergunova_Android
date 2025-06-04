@@ -3,6 +3,9 @@ package ru.itis.application7.registration.ui
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.crashlytics.setCustomKeys
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,9 +15,11 @@ import ru.itis.application7.core.domain.exception.IncorrectUserNicknameInputExce
 import ru.itis.application7.core.domain.exception.IncorrectUserPasswordInputException
 import ru.itis.application7.core.domain.exception.UnknownEventException
 import ru.itis.application7.core.domain.model.UserModel
+import ru.itis.application7.core.domain.usecase.GetUserByNicknameUseCase
 import ru.itis.application7.core.domain.usecase.RegisterUserUseCase
-import ru.itis.application7.core.utils.ExceptionsMessages
-import ru.itis.application7.core.utils.OtherProperties
+import ru.itis.application7.core.utils.properties.CrashlyticsKeys
+import ru.itis.application7.core.utils.properties.ExceptionsMessages
+import ru.itis.application7.core.utils.properties.OtherProperties
 import ru.itis.application7.registration.state.RegistrationScreenEvent
 import ru.itis.application7.registration.state.RegistrationScreenState
 import javax.inject.Inject
@@ -22,6 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
     private val registerUserUseCase: RegisterUserUseCase,
+    private val getUserByNicknameUseCase: GetUserByNicknameUseCase,
     private val sharedPref: SharedPreferences,
 ) : ViewModel() {
 
@@ -46,6 +52,10 @@ class RegistrationViewModel @Inject constructor(
                 )
             }.onSuccess {
                 sharedPref.edit().putString(OtherProperties.USER_NICK_SHARED_PREF, nickname).apply()
+                val userId = getUserByNicknameUseCase(nickname).userId.toString()
+                Firebase.crashlytics.setCustomKeys {
+                    key(CrashlyticsKeys.CRASHLYTICS_USER_ID, userId)
+                }
                 _pageState.value = RegistrationScreenState.OnRegistrationSuccess
             }.onFailure { exception ->
                 when (exception) {

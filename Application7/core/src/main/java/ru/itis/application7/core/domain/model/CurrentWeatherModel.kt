@@ -1,7 +1,7 @@
 package ru.itis.application7.core.domain.model
 
 import androidx.compose.runtime.Immutable
-import ru.itis.application7.core.utils.OtherProperties
+import ru.itis.application7.core.utils.properties.OtherProperties
 
 @Immutable
 data class CurrentWeatherModel(
