@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title">Введите значения секторов через пробел</string>
+    <string name="btn_text">Нарисовать диаграмму</string>
+    <string name="error_empty_input">Введите числа через пробел</string>
+    <string name="error_invalid_input">Вводите только числа через пробел</string>
+    <string name="error_sum_not_100">Сумма чисел должна быть равна 100</string>
+</resources>
