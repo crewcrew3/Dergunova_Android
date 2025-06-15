@@ -1,6 +1,6 @@
 package ru.itis.application7.core.domain.model
 
-import ru.itis.application7.core.utils.OtherProperties
+import ru.itis.application7.core.utils.properties.OtherProperties
 
 data class WeatherDataModel(
     val main: String,

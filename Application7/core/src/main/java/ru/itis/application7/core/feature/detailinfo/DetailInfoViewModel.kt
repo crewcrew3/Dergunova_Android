@@ -12,7 +12,7 @@ import ru.itis.application7.core.domain.exception.UnknownEventException
 import ru.itis.application7.core.domain.usecase.GetCurrentWeatherByCityNameUseCase
 import ru.itis.application7.core.feature.detailinfo.state.DetailInfoScreenEvent
 import ru.itis.application7.core.feature.detailinfo.state.DetailInfoScreenState
-import ru.itis.application7.core.utils.ExceptionsMessages
+import ru.itis.application7.core.utils.properties.ExceptionsMessages
 import javax.inject.Inject
 
 @HiltViewModel

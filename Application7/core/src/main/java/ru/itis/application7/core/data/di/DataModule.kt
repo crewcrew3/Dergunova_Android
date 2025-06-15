@@ -12,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
 import ru.itis.application7.core.BuildConfig
 import ru.itis.application7.core.data.local.WeatherAppDatabase
 import ru.itis.application7.core.data.local.dao.UserDao
-import ru.itis.application7.core.utils.OtherProperties
+import ru.itis.application7.core.utils.properties.OtherProperties
 import javax.inject.Singleton
 
 @Module

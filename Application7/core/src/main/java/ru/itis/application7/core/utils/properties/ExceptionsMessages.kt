@@ -1,4 +1,4 @@
-package ru.itis.application7.core.utils
+package ru.itis.application7.core.utils.properties
 
 
 object ExceptionsMessages {
@@ -11,6 +11,7 @@ object ExceptionsMessages {
     const val EMPTY_HUMIDITY = "Ошибка получения влажности"
     const val EMPTY_WIND_SPEED = "Ошибка получения скорости ветра"
     const val UNKNOWN_ERROR = "Неизвестная ошибка"
+    const val COMMON_ERROR = "Ошибка"
     const val UNKNOWN_EVENT = "Неизвестный тип ивента"
     const val DUPLICATE_NICKNAME = "Пользователь с таким именем уже существует"
     const val INCORRECT_USER_NICKNAME_INPUT = "Некорректный ввод никнейма пользователя"
@@ -18,4 +19,5 @@ object ExceptionsMessages {
     const val UNREGISTERED_USER = "Такой пользователь не зарегистрирован"
     const val WRONG_PASSWORD = "Некорректный пароль"
     const val GRAPH_ERROR = "Точки должны быть неотрицательными и их количество должно совпадать со значением в поле выше"
+    const val FUNCTIONALITY_IS_NOT_AVAILABLE = "Данный функционал недоступен"
 }
