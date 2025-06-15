@@ -20,4 +20,10 @@ object OtherProperties {
 
     const val INTENT_START_DESTINATION_KEY = "navigation_route"
     const val GRAPH_ROUTE_STR_KEY = "graph_route"
+
+    const val PIE_CHART_FRAGMENT_TAG = "pieChartFragment"
+    const val PIE_CHART_EX_MSG = "Сумма всех значений должна быть 100"
+    const val PIE_CHART_EX_MSG_DUPL_COLOR = "В списке цветов для диаграммы не может быть двух идентичных цветов"
+    const val PIE_CHART_PARCELABLE_SUPER_STATE = "superState"
+    const val PIE_CHART_PARCELABLE_ACTIVE_ITEM = "activeItem"
 }

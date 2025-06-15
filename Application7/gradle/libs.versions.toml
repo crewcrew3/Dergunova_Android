@@ -58,6 +58,8 @@ hilt = "2.56.2"
 hiltNavComposeVersion = "1.2.0"
 appcompat = "1.7.0"
 material = "1.12.0"
+activity = "1.10.0"
+constraintlayout = "2.2.0"
 
 [libraries]
 #тестирование
@@ -101,8 +103,11 @@ okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhtt
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 androidx-hilt-nav-compose = {group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavComposeVersion"}
+#androidview
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 #firebase
 firebase-messaging = {group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging"}
 firebase-crashlytics = {group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics"}
@@ -113,6 +118,7 @@ firebase-remote-config = {group = "com.google.firebase", name = "firebase-config
 [bundles]
 compose-deps = ["androidx-activity-compose", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3", "androidx-material"]
 network-deps = ["retrofit", "converter-gson", "gson", "okhttp"]
+android-view-deps = ["androidx-appcompat", "material", "androidx-activity", "androidx-constraintlayout"]
 
 
 [plugins]

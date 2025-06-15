@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pie_data_keys">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </array>
+
+    <array name="pie_data_values">
+        <item>10</item>
+        <item>14</item>
+        <item>6</item>
+        <item>10</item>
+        <item>10</item>
+        <item>35</item>
+        <item>15</item>
+    </array>
+</resources>
