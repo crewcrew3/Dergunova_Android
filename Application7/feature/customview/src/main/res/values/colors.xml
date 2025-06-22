@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="pie_color_1">#A22F4B</color>
+    <color name="pie_color_2">#3178B2</color>
+    <color name="pie_color_3">#BB9737</color>
+    <color name="pie_color_4">#3CB4B4</color>
+    <color name="pie_color_5">#5C37A3</color>
+
+    <array name="pie_colors">
+        <item>@color/pie_color_1</item>
+        <item>@color/pie_color_2</item>
+        <item>@color/pie_color_3</item>
+        <item>@color/pie_color_4</item>
+        <item>@color/pie_color_5</item>
+    </array>
+</resources>

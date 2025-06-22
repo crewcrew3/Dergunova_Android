@@ -44,6 +44,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
     packaging {
         resources {
@@ -63,6 +64,7 @@ dependencies {
     implementation(projects.navigation)
     implementation(projects.feature.registration)
     implementation(projects.feature.authorization)
+    implementation(projects.feature.customview)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -89,4 +91,6 @@ dependencies {
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.remote.config)
+
+    implementation(libs.bundles.android.view.deps)
 }

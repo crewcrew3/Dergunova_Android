@@ -1,0 +1,10 @@
+<resources>
+    <declare-styleable name="PieChartView">
+        <attr name="pieDataKeys" format="reference|integer"/>
+        <attr name="pieDataValues" format="reference|float"/>
+        <attr name="pieColors" format="reference|color"/> <!-- reference - ссылка на ресурс (@array/pie_colors).-->
+        <attr name="gapSize" format="dimension|float"/>
+        <attr name="activeColorOffset" format="dimension|float"/>
+        <attr name="centerRadius" format="dimension|float"/>
+    </declare-styleable>
+</resources>
